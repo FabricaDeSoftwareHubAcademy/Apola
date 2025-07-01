@@ -133,12 +133,14 @@ clASs Database{
 
     // Função para editar a dados do banco de dados
 
-    public function update($where, $values){
+    public function update($where, $values) {
         $fields = array_keys($values);
-        $query = 'UPDATE '.$this->table.' SET '.implode('=?,',$fields).' =? WHERE '.$where;
+        $set = implode(' = ?, ', $fields) . ' = ?';
+        $query = 'UPDATE ' . $this->table . ' SET ' . $set . ' WHERE ' . $where;
     
-        return $this->execute($query,array_values($values));
+        return $this->execute($query, array_values($values));
     }
+    
 
     public function select_perfil($id_cli){
 
