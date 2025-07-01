@@ -405,6 +405,9 @@ dialog{
     justify-content: end;
     padding-bottom: 1rem;
 }
+.modal_headerNone{
+    display: none;
+}
 
 .open-modal{
     display: flex;
