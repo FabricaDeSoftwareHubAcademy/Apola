@@ -33,6 +33,14 @@ class Pedido {
     public function excluir($sacola_id){
         return (new Database('pedido'))->delete('sacola_id_sacola = '.$sacola_id);
     }
-    
+    public function atualizarPedido($id){
+        $db = new Database('pedido');
+        $res = $db->update('id_pedido = '.$id, [
+            'codigo_rastreio' => $this->codigo_rastreio,
+            'status_pedido' => $this->status_pedido
+        ]);
+
+        return $res;
+    }
 }
 ?>
