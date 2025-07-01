@@ -145,9 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p><strong>✔ Sucesso!</strong> A operação foi realizada corretamente.</p>
                     </div>
                 </div>
-                <div  id="conatiner_btn_adm_pc" class="conatiner_btn_adm">
-                    <button type="submit" name="salvarPedido" class="btn_salvar_adm">Salvar</button>
-                </div>
             </form>
         </div>
     </div>
