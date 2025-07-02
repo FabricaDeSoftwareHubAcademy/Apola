@@ -8,7 +8,6 @@ require '../../App/Session/Login.php';
 
 
 
-
 // $result = Login::IsLogedCliente();
 
 // // print_r($result);
@@ -58,8 +57,10 @@ require '../../App/Session/Login.php';
                 <h1 class="title-quadro_personalizado">Descriçao</h1>
                 <div class="quadro">
                         <p class="descricao-quadro">Descreva as características específicas do seu pedido, incluindo formas, materiais, desenhos, cores e quaisquer detalhes adicionais que você gostaria de incorporar.</p>
+                        <p style="color: red; " id="msg"></p>
                     <textarea maxlength="750" id="mensagem" oninput="atualizarContador()" name="descricao" class="insert-text" placeholder="Escreva aqui..."></textarea>
                     <small><span id="contador">0</span>/750 caracteres</small>
+                    
                 </div>
             </div>
             <div class="container_personalizado">
@@ -75,6 +76,7 @@ require '../../App/Session/Login.php';
                         <div class="container_img_anex">
                             <div id="preview_img" class="image-preview"></div>
                             <div id="alert" class="alert"></div>
+                            <p id="img"></p>
                         </div>
                         </div>
                     </div>

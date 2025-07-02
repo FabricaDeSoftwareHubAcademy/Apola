@@ -45,21 +45,36 @@ imgInp.addEventListener('change', () => {
 
   imgInp.value = "";
 });
-
 formulario.addEventListener('submit', e => {
   e.preventDefault();
 
-  let valorMensagem = textoInserido.value;
+  const msg = document.getElementById("msg");
+  const img = document.getElementById("img");
+
+  msg.textContent = "";
+  img.textContent = "";
+
+  let valorMensagem = textoInserido.value.trim(); // remove espaços extras
+
+  // Validação
+  if (valorMensagem === "") {
+    msg.textContent = "Insira uma descrição";
+    return;
+  }
+
+  if (!selectedFiles || selectedFiles.length === 0) {
+    img.textContent = "Insira alguma imagem";
+    return;
+  }
+
   const formData = new FormData();
   formData.append('mensagem', valorMensagem);
-  
+
   selectedFiles.forEach((file) => {
     formData.append('imagens[]', file);
   });
 
   const caminhoFetch = '../../App/act/enviarPersonalizado.php';
-
-  // alertBox.textContent = "Enviando...";
 
   fetch(caminhoFetch, {
     method: 'POST',
@@ -67,7 +82,7 @@ formulario.addEventListener('submit', e => {
   })
   .then(response => response.json())
   .then(data => {
-    if(data.success){
+    if (data.success) {
       abrirModal();
       textoInserido.value = '';
       selectedFiles = [];
