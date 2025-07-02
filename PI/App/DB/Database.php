@@ -245,6 +245,39 @@ clASs Database{
     
         return $stmt;
     }
+    public function select_pedido_personalizado_by_id($id){
+        $query = "SELECT 
+                    produto_perso.tipo AS tipo_produto,
+                    produto_perso.descricao AS descricao_personalizada,
+                    imagens_produto_perso.imagem1,
+                    imagens_produto_perso.imagem2,
+                    imagens_produto_perso.imagem3,
+                    imagens_produto_perso.imagem4,
+                    sacola.valor_total AS valor_total,
+                    pedido.codigo_rastreio AS rastreio,
+                    pedido.status_pedido AS status_pedido,
+                    cliente.telefone AS contato,
+                    cliente.cep AS cep,
+                    cliente.rua AS rua,
+                    cliente.numero_casa AS numero,
+                    cliente.bairro AS bairro,
+                    cliente.cidade AS cidade,
+                    cliente.estado AS estado,
+                    usuario.nome AS nome_cliente,
+                    cliente.sobrenome AS sobrenome
+                FROM pedido
+                JOIN sacola ON pedido.sacola_id_sacola = sacola.id_sacola
+                JOIN cliente ON pedido.sacola_cliente_id_cliente = cliente.id_cliente
+                JOIN usuario ON cliente.id_usuario = usuario.id_usuario
+                JOIN produto_perso ON pedido.produto_perso_id_produto_perso = produto_perso.id_produto_perso
+                LEFT JOIN imagens_produto_perso ON produto_perso.id_produto_perso = imagens_produto_perso.id_produto_perso
+                WHERE pedido.id_pedido = ?";
+        
+        $stmt = $this->execute($query, [$id]);
+    
+        return $stmt;
+    }
+    
 
 
 

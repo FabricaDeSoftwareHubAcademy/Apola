@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="title_adm">Pedido #<?= $_GET['search']; ?></span>
             </div>
         </div>
-
         <div class="conatiner_cadastro_adm_items">
             <form action="" method="POST">
                 <div class="conatiner_cadastro_adm_pedido_header">
