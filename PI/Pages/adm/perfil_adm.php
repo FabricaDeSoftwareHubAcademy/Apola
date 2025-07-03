@@ -12,7 +12,7 @@ $entityUsuario = new User();
 
 $usuario = $entityUsuario->getUsuarioById($id_usuario);
 
-
+$lourdes = $entityUsuario->getUsuarioById($id_usuario)
 
 
 

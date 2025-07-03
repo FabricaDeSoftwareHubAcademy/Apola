@@ -57,7 +57,7 @@ formulario.addEventListener('submit', e => {
   let valorMensagem = textoInserido.value.trim(); // remove espaços extras
 
   // Validação
-  if (valorMensagem === "") {
+  if (valorMensagem.length < 1) {
     msg.textContent = "Insira uma descrição";
     return;
   }

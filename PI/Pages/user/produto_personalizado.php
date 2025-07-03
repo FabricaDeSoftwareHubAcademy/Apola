@@ -8,19 +8,19 @@ require '../../App/Session/Login.php';
 
 
 
-// $result = Login::IsLogedCliente();
+$result = Login::IsLogedCliente();
 
-// // print_r($result);
-// if($result){
-//     include "navbar_logado.php";
-// }else{
-//     header('location: login.php');
-// }
+// print_r($result);
+if($result){
+    include "navbar_logado.php";
+}else{
+    header('location: login.php');
+}
 
 ?>
 <!-- <script src="../../src/JS/carregarImagensPerso.js" defer></script> -->
-      <main  class="main2"> 
-       <div class="container_produto_personazalizado">
+<main  class="main2"> 
+    <div class="container_produto_personazalizado">
 
         <section class="Banner_Sobre_Nos">
             <div class="shape_sobre"></div>
@@ -104,25 +104,25 @@ require '../../App/Session/Login.php';
             <div class="box-button">
                 <button type="submit" name="enviarDadosPersonalize" class="btn-finalizar open-modal"><a href=""></a>Enviar Pedido</button>
             </div>
-                    <div class="modal-enviado">
-                        <div class="area-btn-fechar">
-                            <button class="btn-fechar-modal">X</button>
-                        </div>
-                        <div class="corpo-modal-enviado">
-                            <h5 class="title_modal_zap">Pedido enviado</h5>
-                            <div class="text_modal_zap">Recebemos seu pedido e ele está em processo de análise. Em breve, você será notificado sobre a aprovação. Fique atento às atualizações no seu e-mail ou painel de pedidos. Dúvidas entre em contato.
-                            </div>
-                            <div class="conatiner_item_modal_link_zap">
-                                <div class="item_modal_link_zap">
-                                <i class="fa-brands fa-whatsapp"></i>
-                                <a href="https://wa.me/">67 991924837</a>
-                            </div>
-                        </div>
-                    </div> 
-        
+            
         </form>
-       </div>
-    </main>
+        <div class="modal-enviado">
+            <div class="area-btn-fechar">
+                <button class="btn-fechar-modal">X</button>
+            </div>
+            <div class="corpo-modal-enviado">
+                <h5 class="title_modal_zap">Pedido enviado</h5>
+                <div class="text_modal_zap">Recebemos seu pedido e ele está em processo de análise. Em breve, você será notificado sobre a aprovação. Fique atento às atualizações no seu e-mail ou painel de pedidos. Dúvidas entre em contato.
+                </div>
+                <div class="conatiner_item_modal_link_zap">
+                    <div class="item_modal_link_zap">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <a href="https://wa.me/">67 991924837</a>
+                </div>
+            </div>
+        </div> 
+    </div>
+</main>
 <?php
 
 include "footer.php";

@@ -31,18 +31,20 @@ class ProdutoPerso extends Pedido{
                 return false; // Falha ao inserir imagens
             }
     
-            // Inserir pedido
-            $dbPedido = new Database('pedido');
-            $resPedido = $dbPedido->insert([
-                'data_pedido' => $this->data_pedido,
-                'tipo' => $this->tipo,
-                'status_pedido' => $this->status_pedido,
-                'codigo_rastreio' => $this->codigo_rastreio,
-                'sacola_cliente_id_cliente' => $this->sacola_cliente_id_cliente,
-                'produto_perso_id_produto_perso' => $res_id
-            ]);
-    
-            return $resPedido; // Retorna true se deu tudo certo
+            try{// Inserir pedido
+                $dbPedido = new Database('pedido');
+                $resPedido = $dbPedido->insert([
+                    'data_pedido' => $this->data_pedido,
+                    'tipo' => $this->tipo,
+                    'status_pedido' => $this->status_pedido,
+                    'codigo_rastreio' => $this->codigo_rastreio,
+                    'produto_perso_id_produto_perso' => $res_id
+                ]);
+        
+                return $resPedido; // Retorna true se deu tudo certo
+            }catch (Exception $e) {
+                return $e;
+            }
         }
     
         return false;

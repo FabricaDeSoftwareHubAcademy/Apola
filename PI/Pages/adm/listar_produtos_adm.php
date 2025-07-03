@@ -13,7 +13,7 @@ else{
 }
 ?>
 
-<body onload='load_table()'>  
+<body>  
     <main class="main_adm">
         <div class="conatiner_dashbord_adm">
             <div class="Title_deafult_adm">
