@@ -145,7 +145,7 @@
                                 <a id="icon-default" href="./produto_personalizado.php">Personalize</a>
                             </li>
                             <li id="text-categoria">
-                                <a href="">Categorias<i class="fa-solid fa-chevron-down icon-seta"></i></a>
+                                <a href="#">Categorias<i class="fa-solid fa-chevron-down icon-seta"></i></a>
                                 <div class="mega-menu">
                                     <div class="mega-menu-content">
                                     <?php

@@ -1,5 +1,5 @@
 /*usando o banco de dados do pi*/ 
-use 140p1;
+use 140p1; 
 
 /*primeiro vou criar as tabelas que não possui id de outras tabelas*/   
 
@@ -57,7 +57,8 @@ create table produto_perso(
   
 
 create table cliente( 
-	id_cliente int not null unique auto_increment, 
+	id_cliente int not null unique auto_increment,
+    foto_perfil varchar(250) not null,
     sobrenome varchar(100) not null, 
     cep char(9) not null, 
     cpf char(11) unique not null, 
@@ -84,6 +85,32 @@ create table administrador(
     foreign key(id_usuario) references usuario(id_usuario) 
 ); 
 
+/*criando a tabela avaliacao_loja */
+
+create table avaliacao_loja(
+	id_avaliacao_loja int not null auto_increment,
+    comentario text not null,
+	notas enum('1', '2', '3', '4', '5') not null,
+    id_cliente int not null,
+    
+    constraint primary key(id_avaliacao_loja),
+    foreign key(id_cliente) references cliente(id_cliente)
+);
+
+/*criando a tabela avaliacao_produto */
+
+create table avaliacao_produto(
+	id_avaliacao_produto int not null auto_increment,
+    comentario text not null,
+    notas enum('1','2','3','4','5') not null,
+    id_cliente int not null,
+    id_produto int not null,
+    
+    constraint primary key(id_avaliacao_produto),
+    foreign key(id_cliente) references cliente(id_cliente),
+    foreign key(id_produto) references produto(id_produto)
+);
+
 /*criando a tabela imagens_produto_perso*/ 
 
 create table imagens_produto_perso( 
@@ -103,21 +130,20 @@ create table imagens_produto_perso(
 create table produto( 
 	id_produto int not null unique auto_increment,
     nome varchar(100) not null, 
+    status_produto char(1) not null,
+    tipo varchar(80) not null,
     preco decimal(10,2) not null, 
     avaliacao longtext, 
     quantidade int not null, 
     cor varchar(45) not null, 
     tamanho float not null, 
 	imagem varchar(100) not null, 
-    descricao longtext not null, 
-    tipo varchar(100) not null, 
+    descricao longtext not null,
     categoria_id_categoria int not null, 
     
     constraint primary key(id_produto), 
     foreign key(categoria_id_categoria) references categoria(id_categoria) 
 ); 
-
-  
 
 /*criando a tebela de favoritos*/ 
 
@@ -125,9 +151,11 @@ create table favoritos(
 	id_favoritos int not null unique auto_increment, 
     constraint primary key(id_favoritos), 
     cliente_id_cliente int not null, 
+    status_favoritos enum('a','i') not null;
     foreign key(cliente_id_cliente) references cliente(id_cliente), 
     produto_id_produto int not null, 
     foreign key(produto_id_produto) references produto(id_produto) 
+
 
 ); 
 
@@ -160,13 +188,13 @@ create table pedido(
     codigo_rastreio varchar(30) unique not null, 
     sacola_id_sacola int not null, 
 	foreign key(sacola_id_sacola) references sacola(id_sacola), 
-    sacola_produto_id_produto int not null, 
+    sacola_produto_id_produto int default null, 
     foreign key(sacola_produto_id_produto) references sacola(produto_id_produto), 
     sacola_produto_categoria_id_categoria int not null, 
     foreign key(sacola_produto_categoria_id_categoria) references sacola(produto_categoria_id_categoria), 
     sacola_cliente_id_cliente int not null, 
     foreign key(sacola_cliente_id_cliente) references sacola(cliente_id_cliente), 
-    produto_perso_id_produto_perso int not null, 
+    produto_perso_id_produto_perso int default null,
     foreign key(produto_perso_id_produto_perso) references produto_perso(id_produto_perso),
     
     constraint primary key(id_pedido)

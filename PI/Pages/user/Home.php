@@ -9,10 +9,13 @@ include "head.php";
 if (Login::IsLogedCliente()) {
     include 'navbar_logado.php';
     echo '<script>sessionStorage.setItem("idcliente",'. $_SESSION['cliente']['id_cliente'] .')</script>';
+    
+
 } 
 else {
     include 'navbar_deslogado.php';
     echo'<script>sessionStorage.clear();</script>';
+
 }
 
 
@@ -40,6 +43,11 @@ $bannerPromocionalPosicao3  = $banner->getBannerForPosicao('banners_promocionais
 $produtosAleatorios = Produto::buscarProdutoAleatorio();
 
 
+
+// print_r($produtosAleatorios);
+// exit;
+
+
 $categorias = Categoria::buscarCategoriaLimit('RAND()',null,3);
 
 $categoriasAll =  Categoria::buscarCategoriaLimit(null, 'BY RAND()',6);
@@ -60,7 +68,12 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
 
 
 
+
+
 ?>
+
+
+
 
     <main  class="main2">
         <!-- INICIO BANNER PRINCIPAL -->
@@ -143,7 +156,7 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
         <!-- INICIO 1* CARDS PRODUTOS -->
         <section class="card_produtos">
         <div class="swiper">
-            <div class="Title_card_produto">Mais Vendidos</div>
+            <div class="Title_card_produto">Destaques</div>
             <div class="btn_card_produto">
                 <div class="btn_prev_card"><i class="fa-solid default_btn_icon_card fa-chevron-left"></i></div>
                 <div class="btn_next_card"><i class="fa-solid default_btn_icon_card fa-chevron-right"></i></div>
@@ -152,21 +165,20 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
 
                 <?php
 
-                foreach ($produtosAleatorios as $produto) {
-                    echo'
-                        <div class="swiper-slide card_produto">
-                            <div class="icon_favorite">
-                                <label class="checkbox-heart">
-                                    <input type="checkbox">
-                                    <i class="fa-solid fa-heart"></i>
-                                </label> 
-                            </div>
-                            <!-- <a style="text-decoration:none;" class="link_produto_home" href="./comprar_produto.php"> -->
+                    foreach ($produtosAleatorios as $produto) {
+                        echo '
+                            <div class="swiper-slide card_produto">
+                                <div class="icon_favorite">
+                                    <label class="checkbox-heart">
+                                        <input class="input-check" type="checkbox" data-status="'.$produto['status_favoritos'] .'" data-id="'.$produto['id_produto'].'" '.($produto['status_favoritos'] ? 'checked' : '').'>
+                                        <i class="fa-solid fa-heart"></i>
+                                    </label> 
+                                </div>
                                 <div class="img_content_produto">
-                                    <img src=" '.$produto['imagem'].' " alt="">
+                                    <img src="'.$produto['imagem'].'" alt="">
                                 </div>
                                 <div class="conteudo_card">
-                                    <div class="nome_card_produto">'. $produto['nome'] .'</div>
+                                    <div class="nome_card_produto">'.htmlspecialchars($produto['produto_nome']).'</div>
                                     <div class="content_star_icon">
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
@@ -174,16 +186,16 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
                                     </div>
-                                    <div class="preco_card_produto">R$ '. $produto['preco'] .'</div>
+                                    <div class="preco_card_produto">R$ '.number_format($produto['preco'], 2, ',', '.').'</div>
                                     <div class="btn_content_card_produto">
                                         <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i></div>
                                         <div class="btn_buy_card">Comprar</div>
                                     </div>
                                 </div>
-                            <!-- </a> -->
-                        </div>
+                            </div>
                         ';
                     }
+
 
                 ?>
             </div>
@@ -424,6 +436,11 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
         </section>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="../../src/JS/swipper_card.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+        <script src="../../src/JS/favoritos.js"></script>
         
         <!-- FIM 4* CARDS PRODUTOS -->
         

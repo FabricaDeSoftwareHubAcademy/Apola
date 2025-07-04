@@ -106,6 +106,9 @@ clASs Database{
         // COM FIELDS NA FUNÇÃO SELECT COMO PARAMENTRO = "$fields = '*'
         $query = 'SELECT '.$fields.' FROM '. $this->table.' '.$where.' '.$order.' '.$limit;
 
+        print_r($query);
+
+
         // $query = 'SELECT * FROM '. $this->table.' '.$where.' '.$order.' '.$limit.;            
         return $this->execute($query);
         
@@ -114,22 +117,18 @@ clASs Database{
 
 
     // Função para deletar dados do banco de dados
-    public function delete($where){
-        $query = 'DELETE FROM'.$this->table.'WHERE'.$where;
-
-        $this->execute($query);
-
-        return true;
-
+    public function delete($where)
+    {
         // Monta a cláusula WHERE se fornecida
         $where = strlen($where) ? 'WHERE '.$where : '';
-
-        // Monta a query de DELETE
+    
+        // Monta a query de DELETE com espaços corretos
         $query = 'DELETE FROM '.$this->table.' '.$where;
-
+    
         // Executa a query
         return $this->execute($query);
     }
+    
 
 
     // Função para editar a dados do banco de dados
@@ -223,7 +222,20 @@ clASs Database{
 
 
     public function select_produto_por_aleatorio(){
-        $query =  "Select categoria.nome, produto.imagem, produto.nome, produto.preco from produto Join categoria on produto.categoria_id_categoria = categoria.id_categoria where produto.status_produto = 'a' ORDER BY RAND() LIMIT 10";
+                $query = "SELECT 
+                favoritos.status_favoritos, 
+                produto.id_produto, 
+                categoria.nome AS categoria_nome, 
+                produto.imagem, 
+                produto.nome AS produto_nome, 
+                produto.preco 
+            FROM produto 
+            JOIN categoria ON produto.categoria_id_categoria = categoria.id_categoria 
+            LEFT JOIN favoritos ON produto.id_produto = favoritos.produto_id_produto
+            WHERE produto.status_produto = 'a' 
+            ORDER BY RAND() 
+            LIMIT 10;
+        ";
 
     
          return $result = $this->execute($query)->fetchAll(PDO::FETCH_ASSOC);
@@ -232,6 +244,32 @@ clASs Database{
 
 
     
+    }
+
+
+
+    public function select_produto_favoritos($id_cliente)
+    {
+
+        $query = "SELECT 
+                favoritos.status_favoritos, 
+                produto.id_produto, 
+                categoria.nome AS categoria_nome, 
+                produto.imagem, 
+                produto.nome AS produto_nome, 
+                produto.preco 
+            FROM produto 
+            JOIN categoria ON produto.categoria_id_categoria = categoria.id_categoria 
+            LEFT JOIN favoritos ON produto.id_produto = favoritos.produto_id_produto 
+                AND favoritos.cliente_id_cliente = " . (int)$id_cliente . "
+            WHERE produto.status_produto = 'a';
+        ";
+
+
+
+        return $result = $this->execute($query)->fetchAll(PDO::FETCH_ASSOC);
+
+
     }
 
 
