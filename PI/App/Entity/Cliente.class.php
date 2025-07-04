@@ -9,7 +9,9 @@ require_once 'User.php';
 
 class Cliente extends User{
 
-    public int $id_cliente;
+
+    public ?int $id_cliente = null;
+    public string $nome;
     public string $sobrenome;
     public ?string $foto_perfil;
     public int $cpf;
@@ -25,6 +27,7 @@ class Cliente extends User{
 
     //atributo tipo perfil
     // enum cliente e adm.
+
     // Função que cadastra usúario no banco de dados 
     
     public function cadastrarCliente(){

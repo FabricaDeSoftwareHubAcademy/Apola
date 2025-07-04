@@ -1,36 +1,53 @@
 <?php
 
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../');
+$dotenv->load();
+
 
 clASs Database{
 
+    // public $conection;
+    // public string $local = '10.38.0.125';
+    // public string $db = 'pi_artesanato';
+    // public string $user = 'devweb';
+    // public string $password = 'suporte@22';
+    // public $table;
+    
     public $conection;
-    public string $local = '192.168.22.9';
-    public string $db = '140p1';
-    public string $user = 'devweb';
-    public string $password = 'voucher140';
+    public string $local;
+    public string $db;
+    public string $user;
+    public string $password;
     public $table;
 
 
+    
 
     public function __construct($table = null) {
+        $this->local = $_ENV['DB_HOST'] ?? 'localhost';
+        $this->db = $_ENV['DB_DATABASE'] ?? 'Users';
+        $this->user = $_ENV['DB_USERNAME'] ?? 'root';
+        $this->password = $_ENV['DB_PASSWORD'] ?? '';
         $this->table = $table;
         $this->conecta();
     }
-
         
     // Função conectar com o banco de dados
 
-    private function conecta(){
-        try{
-            $this->conection = new PDO("mysql:host=".$this->local.";dbname=$this->db",
-            $this->user,$this->password); 
-            $this->conection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            return true;
-        }catch (PDOException $err){
-            die("Connection Failed" . $err->getMessage());
-            return false;
-        }
+    public function conecta() {
+    try {
+        $this->conection = new PDO("mysql:host=".$this->local.";dbname=$this->db",
+        $this->user, $this->password); 
+        $this->conection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $this->conection;  // <-- return the PDO object here!
+    } catch (PDOException $err) {
+        die("Connection Failed: " . $err->getMessage());
+        // no need to return false after die()
     }
+}
+
 
     // Função para excutar uma função do banco de dados
 
