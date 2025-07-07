@@ -32,6 +32,7 @@
     <script src="../../src/JS/item_comprar_produto.js" defer></script>
     <script src="../../src/JS/loadDadosSobreNois.js" defer></script>
     <script src="../../src/JS/favoritos.js" defer></script>
+    <script src="../../src/JS/carregarImagensPerso.js" defer></script>
 
     <link rel="shortcut icon" href=../../src/imagens/logoconvertida.png type="imagex/png">
 

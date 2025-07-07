@@ -4,7 +4,7 @@ function atualizarContador() {
     const contador = document.getElementById("contador");
     contador.textContent = textarea.value.length;
 }
-let form = document.querySelector("form")
+let form = document.getElementById("formulario_avaliacao")
 
 let modal1 = document.querySelector('.modal-sobre-nois-avaliado')
 let modal2 = document.querySelector('.modal-sobre-nois-not-avaliado')
@@ -49,7 +49,7 @@ async function handleAvaliacoesSobreNois(event=null){
     try{
         let dados_avaliacoes = await fetch('../../App/Session/carregar_avaliacao.php')
         let response = await dados_avaliacoes.json()
-        console.log("Aquii" +response)
+        // console.log("Aquii" +response)
         response.forEach(e => {
             let estrelasHTML = "";
         
@@ -105,11 +105,11 @@ form.addEventListener("submit" , e =>{
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Sucesso!!!!!!!", data)
+                    // console.log("Sucesso!!!!!!!", data)
                     aparecerModal1()
                 })
                 .catch((error)  => {
-                        console.log('Error', error)
+                        // console.log('Error', error)
                         aparecerModal3()
                 })
     }else{

@@ -2,13 +2,20 @@
 require_once '../../App/DB/Database.php';
 
 class Pedido {
-    public int $id;
-    public DATETIME $data_pedido;
+    public string $data_pedido;
     public string $tipo;
     public string $status_pedido;
-    public string $codigo_rastreio;
+    public ?string $codigo_rastreio;
+    public ?int $produto_perso_id_produto_perso;
     
     public function cadastrar(){
+        $db = new Database('pedido');
+        $result = $db->insert([
+        ]);
+
+        return $result ? true : false;
+    }
+    public function cadastrarPerso($id){
         $db = new Database('pedido');
         $result = $db->insert([
         ]);

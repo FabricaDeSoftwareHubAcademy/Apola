@@ -196,7 +196,7 @@ else {
             <h2 class="avaliacao-titulo">Deixe sua Avaliação</h2>
             <div class="avaliacao-container">
                 
-                <form class="avaliacao-form" method="POST">
+                <form class="avaliacao-form" id="formulario_avaliacao" method="POST">
                     <div class="form-row">
                         <div class="form-group nota">
                             <label for="nota">Nota:</label>
