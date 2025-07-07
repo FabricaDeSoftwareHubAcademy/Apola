@@ -23,6 +23,10 @@ class Pedido {
         return $result ? true : false;
     }
 
+    public function buscarTodosPedidos($where = null, $order = null, $limit = null) {
+        return (new Database('pedido'))->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
+    }
+
     public function atualizar(){
         return (new Database('pedido'))->update('sacola_id_sacola = '.$this->sacola_id_sacola,[
         ]);

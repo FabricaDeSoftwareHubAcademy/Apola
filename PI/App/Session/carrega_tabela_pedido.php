@@ -25,5 +25,6 @@ if (!empty($search)) {
     echo json_encode($dados ?: []);
     exit;
 }
-$dados = Pedido::buscar(); // todos os pedidos
+$dados = Pedido::buscar();
+// todos os pedidos
 echo json_encode($dados ?: []);

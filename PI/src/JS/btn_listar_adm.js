@@ -54,7 +54,7 @@ async function load_table(){
 
     let dados_php = await fetch('../../App/Session/carrega_tabela_pedido.php');
     let response = await dados_php.json();
-
+    // console.log(response);   
     for(var i = 0; i < response.length; i++){
         html += '<tr>';
         html += '<td>';

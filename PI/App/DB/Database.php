@@ -171,11 +171,27 @@ clASs Database{
         
     }
 
-    public function select_pedido($where = ''){
-        $sql = "SELECT pedido.id_pedido AS ID, sacola.valor_total AS Valor, pedido.tipo AS Tipo, cliente.estado AS UF 
-                FROM pedido 
-                JOIN sacola ON pedido.sacola_id_sacola = sacola.id_sacola
-                JOIN cliente ON sacola.cliente_id_cliente = cliente.id_cliente";
+    public function select_pedido($where = '') {
+        $sql = "
+            SELECT 
+                pedido.id_pedido AS ID,
+                pedido.tipo AS Tipo,
+                pedido.status_pedido AS Status,
+                pedido.data_pedido AS DataPedido,
+                pedido.codigo_rastreio AS Rastreio,
+    
+                -- Valores para pedidos 'disponível'
+                sacola.valor_total AS Valor,
+                cliente.estado AS UF,
+    
+                -- Informações do produto personalizado (se houver)
+                produto_perso.descricao AS DescricaoPersonalizada
+    
+            FROM pedido
+            LEFT JOIN sacola ON pedido.sacola_id_sacola = sacola.id_sacola
+            LEFT JOIN cliente ON sacola.cliente_id_cliente = cliente.id_cliente
+            LEFT JOIN produto_perso ON pedido.produto_perso_id_produto_perso = produto_perso.id_produto_perso
+        ";
     
         if (!empty($where)) {
             $sql .= " WHERE $where";
