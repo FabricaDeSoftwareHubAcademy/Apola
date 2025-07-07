@@ -1,4 +1,51 @@
+document.querySelectorAll('p.n_item_dados[data-status-pedido]').forEach(p => {
+    const status = p.getAttribute('data-status-pedido');
+    if (counts.hasOwnProperty(status)) {
+        p.textContent = `N° ${counts[status]}`;
+    }
+});
+function filtrarPedidos(status) {
+    fetch('../../App/Session/carrega_tabela_pedido.php?status=' + encodeURIComponent(status))
+        .then(response => response.json())
+        .then(data => {
+            let tabela = document.getElementById('dados');
+            let html = '';
 
+            data.forEach(pedido => {
+                html += `<tr>
+                    <td>${pedido.ID}</td>
+                    <td>${pedido.Valor}</td>
+                    <td>${pedido.Tipo}</td>
+                    <td>${pedido.UF}</td>
+                    <td>`;
+
+                if (pedido.Tipo === "disponivel") {
+                    html += `<div class="container_item_list_ações">
+                                <a href="pedido_disponivel_adm.php?search=${pedido.ID}">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </div>`;
+                } else if (pedido.Tipo === "personalizado") {
+                    html += `<div class="container_item_list_ações">
+                                <a href="pedido_personalizado_adm.php?search=${pedido.ID}">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            </div>`;
+                }
+
+                html += `</td></tr>`;
+            });
+
+            if (html === '') {
+                html = `<tr><td colspan="5"> Nenhum resultado encontrado </td></tr>`;
+            }
+
+            tabela.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Erro ao carregar pedidos:', error);
+        });
+}
 
 async function load_table(){
     

@@ -2,21 +2,28 @@
 
 require_once '../Entity/Pedido.class.php';
 
-$objPedido = new Pedido();
+$status = $_GET['status'] ?? '';
+$search = $_GET['search'] ?? '';
 
-$where = '';
+if (!empty($status)) {
+    $status = addslashes($status);
+    $where = "pedido.status_pedido = '$status'";
+    $dados = Pedido::buscar($where);
+    echo json_encode($dados ?: []);
+    exit;
+}
 
-if (isset($_GET['search']) && trim($_GET['search']) !== '') {
-    $search = addslashes(trim($_GET['search']));
+if (!empty($search)) {
+    $search = addslashes(trim($search));
     if (is_numeric($search)) {
         $where = "pedido.id_pedido = $search";
     } else {
         $where = "pedido.tipo LIKE '%$search%' OR cliente.estado LIKE '%$search%'";
     }
+
+    $dados = Pedido::buscar($where);
+    echo json_encode($dados ?: []);
+    exit;
 }
-
-$dados = $objPedido->buscar($where);
-
-echo json_encode($dados ? $dados : []);
-
-?>
+$dados = Pedido::buscar(); // todos os pedidos
+echo json_encode($dados ?: []);

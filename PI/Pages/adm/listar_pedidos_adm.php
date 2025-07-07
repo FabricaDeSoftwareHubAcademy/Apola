@@ -53,7 +53,7 @@ th, td {
                     <div class="card_item_dados">
                         <i class="fa-solid fa-dolly"></i>
                         <div class="item_dados_adm">
-                            <p class="n_item_dados">N° 45</p>
+                            <p class="n_item_dados" data-status-pedido="total"></p>
                             <p class="text_item_dados">Total de Pedidos</p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ th, td {
                     <div class="card_item_dados">
                         <i class="fa-solid fa-money-bill"></i>
                         <div class="item_dados_adm">
-                            <p class="n_item_dados">N° 23</p>
+                            <p class="n_item_dados" data-status-pedido="pagar"></p>
                             <p class="text_item_dados">Total a pagar</p>
                         </div>
                     </div>
@@ -70,27 +70,35 @@ th, td {
                     <div class="card_item_dados">
                         <i class="fa-solid fa-box"></i>
                         <div class="item_dados_adm">
-                            <p class="n_item_dados">N° 34</p>
-                            <p class="text_item_dados">Total Disponivel</p>
+                            <p class="n_item_dados" data-status-pedido="producao"></p>
+                            <p class="text_item_dados">Total em Produção</p>
+                        </div>
+                    </div>
+                    <div class="shape_dados"></div>
+                    <div class="card_item_dados">
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <div class="item_dados_adm">
+                            <p class="n_item_dados" data-status-pedido="envio"></p>
+                            <p class="text_item_dados">Total em Envio</p>
                         </div>
                     </div>
                     <div class="shape_dados"></div>
                     <div class="card_item_dados">
                         <i class="fa-solid fa-gift"></i>
                         <div class="item_dados_adm">
-                            <p class="n_item_dados">N° 11</p>
-                            <p class="text_item_dados">Total Personalizado</p>
+                            <p class="n_item_dados" data-status-pedido="entregue"></p>
+                            <p class="text_item_dados">Total Entregue</p>
                         </div>
                     </div>
 
                 </div>
                 <div class="conatiner_listar_adm">
                     <div class="container_listar_header_adm">
-                        <div class="container_listar_header_adm_left">
-                            <button class="btn_item_listar_adm"id="btn_pagar" data-status='A pagar'>A pagar</button>
-                            <button class="btn_item_listar_adm" id="btn_producao" data-status='Produção'>Produção</button>
-                            <button class="btn_item_listar_adm" id="btn_envio" data-status='Envio'>Envio</button>
-                            <button class="btn_item_listar_adm" id="btn_entregue" data-status='Entregue'>Entregue</button>
+                        <div class="container_listar_header_adm_left" class="filtros-status">
+                            <button class="btn_item_listar_adm" onclick="filtrarPedidos('A pagar')">A pagar</button>
+                            <button class="btn_item_listar_adm" onclick="filtrarPedidos('Produção')">Produção</button>
+                            <button class="btn_item_listar_adm" onclick="filtrarPedidos('Envio')">Envio</button>
+                            <button class="btn_item_listar_adm" onclick="filtrarPedidos('Entregue')">Entregue</button>
                         </div>
                         <div class="container_listar_header_adm_right">
                             <input id="input_search" placeholder="Pesquisar Nº do pedido" type="search" name="" id="">
