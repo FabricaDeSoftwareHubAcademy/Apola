@@ -151,9 +151,11 @@ create table favoritos(
 	id_favoritos int not null unique auto_increment, 
     constraint primary key(id_favoritos), 
     cliente_id_cliente int not null, 
+    status_favoritos enum('a','i') not null;
     foreign key(cliente_id_cliente) references cliente(id_cliente), 
     produto_id_produto int not null, 
     foreign key(produto_id_produto) references produto(id_produto) 
+
 
 ); 
 

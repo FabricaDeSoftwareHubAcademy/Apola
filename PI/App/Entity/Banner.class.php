@@ -1,7 +1,15 @@
 <?php
 require_once(__DIR__ . '/../DB/Database.php');
 
-class Banner {
+
+use \AllowDynamicProperties;
+
+
+
+#[AllowDynamicProperties]
+class Banner{
+
+
     public string $caminho;
     public int $posicao;
 
@@ -10,6 +18,7 @@ class Banner {
     public function getBannerForPosicao($tabela, $posicao) {
         $db = new Database($tabela);
         $result = $db->select("posicao = $posicao");
+
         return $result->fetchObject(self::class);
     }
 

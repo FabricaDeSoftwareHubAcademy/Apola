@@ -69,4 +69,22 @@ class Produto{
                                         ->fetchAll(PDO::FETCH_CLASS,self::class);
 
     }
+
+
+    public static function buscarProdutoCategoria($categoria){
+
+        return (new Database('produto'))->select_produto_por_categoria($categoria);
+
+    
+    }
+    
+    public static function buscarProdutoAleatorio(){
+
+        return (new Database('produto'))->select_produto_por_aleatorio();
+
+    
+    }
+
+
+    
 }

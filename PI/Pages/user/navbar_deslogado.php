@@ -1,3 +1,11 @@
+<?php
+
+
+
+    $categorias= Categoria::buscarCategoria();
+    
+
+?>
 
     <!-- INICIO MeENU NAVABAR -->
     <header class="menu">
@@ -137,44 +145,29 @@
                                 <a id="icon-default" href="./produto_personalizado.php">Personalize</a>
                             </li>
                             <li id="text-categoria">
-                                <a href="">Categorias<i class="fa-solid fa-chevron-down icon-seta"></i></a>
+                                <a href="#">Categorias<i class="fa-solid fa-chevron-down icon-seta"></i></a>
                                 <div class="mega-menu">
                                     <div class="mega-menu-content">
-                                        <div class="row">
-                                            <h3 class="Title-cat"><a href="./categorias.php">Amigurumi</a></h3>
-                                            <ul class="mega-links">
-                                                <!-- <li><a href="">Amigurumi Cacto</a></li>
-                                                <li><a href="">Amigurumi Cacto</a></li>
-                                                <li><a href="">Amigurumi Cacto</a></li>
-                                                <li><a href="">Amigurumi Cacto</a></li> -->
-                                            </ul>
-                                        </div>
-                                        <div class="row">
-                                            <h3 class="Title-cat"><a href="./categorias.php">Cachepô</a></h3>
-                                            <ul class="mega-links">
-                                                <!-- <li><a href="">Cachepô Cacto</a></li>
-                                                <li><a href="">Cachepô Cacto</a></li>
-                                                <li><a href="">Cachepô Cacto</a></li>
-                                                <li><a href="">Cachepô Cacto</a></li> -->
-                                            </ul>
-                                        </div>
-                                        <div class="row">
-                                            <h3 class="Title-cat"><a href="./categorias.php">Porta-Chaves</a></h3>
-                                            <ul class="mega-links">
-                                                <!-- <li><a href="">Porta-Chaves Cacto</a></li>
-                                                <li><a href="">Porta-Chaves Cacto</a></li>
-                                                <li><a href="">Porta-Chaves Cacto</a></li>
-                                                <li><a href="">Porta-Chaves Cacto</a></li> -->
-                                            </ul>
-                                        </div>
-                                        <div class="row">
-                                            <h3 class="Title-cat"><a href="./categorias.php">Bordado</a></h3>
-                                            <ul class="mega-links">
-                                                <!-- <li><a href="">Bordado Cacto</a></li>
-                                                <li><a href="">Bordado Cacto</a></li>
-                                                <li><a href="">Bordado Cacto</a></li>
-                                                <li><a href="">Bordado Cacto</a></li> -->
-                                            </ul>
+                                    <?php
+
+                                        foreach ($categorias as $categoria) {
+                                            
+                                            echo'
+                                            <div class="row">
+                                                <h3 class="Title-cat"><a href="./categorias.php">'.$categoria->nome.'</a></h3>
+                                                <ul class="mega-links">
+                                                    <!-- <li><a href="">Amigurumi Cacto</a></li>
+                                                    <li><a href="">Amigurumi Cacto</a></li>
+                                                    <li><a href="">Amigurumi Cacto</a></li>
+                                                    <li><a href="">Amigurumi Cacto</a></li> -->
+                                                </ul>
+                                            </div>
+
+                                            ';
+
+                                        }
+
+                                        ?>
                                     </div>
                                 </div>
                             </li>

@@ -42,6 +42,12 @@ class Categoria{
                                         ->fetchAll(PDO::FETCH_CLASS,self::class);
 
     }
+    public static function buscarCategoriaLimit($where=null, $order =null, $limit = null){
+        return (new Database('categoria'))->select($where,$order,$limit)
+                                        ->fetchAll(PDO::FETCH_CLASS,self::class);
+        
+
+    }
 
     
 }
