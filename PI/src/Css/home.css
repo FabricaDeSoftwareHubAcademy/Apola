@@ -170,6 +170,7 @@
     list-style: none;
     text-align: center;
     color: #4A4A4A;
+    overflow: hidden;
 }
 
 .item_cards_categoria .link_cards_categoria{
@@ -209,12 +210,18 @@
 }
 
 
-.text_cards_categoria{
+.text_cards_categoria {
+    width: 100%;
+    height: 50%;
     font-weight: 500;
-    color: #ffffff;
     padding-top: 1rem;
-    
-    
+    display: flex;
+    flex-direction: column;  /* <-- Essencial para permitir quebra */
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 
@@ -824,7 +831,7 @@ BANNER PROMOCIONAL FINAL */
 }
 
 .img_content_categoria img{
-    height: 90px;
+    width: 60px;
 }
 
 
@@ -1040,9 +1047,9 @@ BANNER PROMOCIONAL FINAL */
 .img_content_categoria{
     width: 100%;
 }
-
+list_cards_categoria .item_cards_categoria
 .img_content_categoria img{
-    height: 90px;
+    height: 20px;
 }
 
 

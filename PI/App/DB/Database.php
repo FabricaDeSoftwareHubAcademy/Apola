@@ -123,7 +123,7 @@ clASs Database{
         // COM FIELDS NA FUNÇÃO SELECT COMO PARAMENTRO = "$fields = '*'
         $query = 'SELECT '.$fields.' FROM '. $this->table.' '.$where.' '.$order.' '.$limit;
 
-        print_r($query);
+        // print_r($query);
 
 
         // $query = 'SELECT * FROM '. $this->table.' '.$where.' '.$order.' '.$limit.;            

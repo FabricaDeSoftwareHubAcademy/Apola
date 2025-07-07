@@ -28,117 +28,80 @@ if(isset($_GET['id'])){
 }
 $entity = new Produto();
 $produto = $entity->buscarProdutoPorId($id_produto);
-// print_r($produto)
 
-if(isset($_POST['carregarDadosProduto'])){
+if (isset($_POST['carregarDadosProduto'])) {
     $titulo = $_POST['tituloProduto'];
-    if(empty($titulo)){
-        $errTitulo = "Adicione um titulo";
-    }
     $status = $_POST['selectStatus'];
-    if(empty($status)){
-        $errStatus = "Escolha o status";
-    }
     $categoria = $_POST['selectCategoria'];
-    var_dump($categoria);
-    if(empty($categoria)){
-        $errCategoria = "Escolha uma categoria";
-    }
     $descricao = $_POST['descricaoProduto'];
-    if(empty($descricao)){
-        $errDescricao = "Adicione uma descrição";
-    }
     $cor = $_POST['corProduto'];
-    if(empty($cor)){
-        $errCor = "Adicione uma cor";
-    }
     $altura = $_POST['alturaProduto'];
-    if(empty($altura)){
-        $errAltura = "Adicione uma Altura";
-    }
     $largura = $_POST['larguraProduto'];
-    if(empty($largura)){
-        $errLargura = "Adicione uma Largura";
-    }
     $estoque = $_POST['estoqueProduto'];
-    if(empty($estoque)){
-        $errEstoque = "Adicione um estoque";
-    }
     $preco = $_POST['precoProduto'];
-    if(empty($preco)){
-        $errPreco = "Adicione um preço";
-    }
 
-    if(empty($titulo) || empty($status) || empty($categoria) || empty($descricao) || empty($cor) || empty($altura) || empty($largura) || empty($estoque)){
-    }
-    else{
+    // Validações simples
+    if (empty($titulo)) $errTitulo = "Adicione um título";
+    if (empty($status)) $errStatus = "Escolha o status";
+    if (empty($categoria)) $errCategoria = "Escolha uma categoria";
+    if (empty($descricao)) $errDescricao = "Adicione uma descrição";
+    if (empty($cor)) $errCor = "Adicione uma cor";
+    if (empty($altura)) $errAltura = "Adicione uma altura";
+    if (empty($largura)) $errLargura = "Adicione uma largura";
+    if (empty($estoque)) $errEstoque = "Adicione um estoque";
+    if (empty($preco)) $errPreco = "Adicione um preço";
 
-        if (isset($_FILES['imagemProduto']) && $_FILES['imagemProduto']['error'] === UPLOAD_ERR_OK) {
+    // Só continua se todos os campos estiverem preenchidos
+    if (empty($errTitulo) && empty($errStatus) && empty($errCategoria) && empty($errDescricao) && empty($errCor) && empty($errAltura) && empty($errLargura) && empty($errEstoque) && empty($errPreco)) {
+        
+        $imagemNova = false;
+
+        // Trata imagem, se uma nova for enviada
+        if (isset($_FILES['imagemProduto']) && $_FILES['imagemProduto']['error'] === UPLOAD_ERR_OK && $_FILES['imagemProduto']['size'] > 0) {
             $extensoesPermitidas = ['png', 'jpg', 'jpeg', 'jfif'];
             $pastaDestino = '../../src/imagens/produtos/';
-
             $imagem = $_FILES['imagemProduto'];
             $nomeOriginal = $imagem['name'];
             $extensao = strtolower(pathinfo($nomeOriginal, PATHINFO_EXTENSION));
 
             if (!in_array($extensao, $extensoesPermitidas)) {
-                echo'<script>alert("A extensão do arquivo não é permitida.")</script>';
+                $errImagem = "A extensão do arquivo \"$nomeOriginal\" não é permitida.";
             } else {
-                $novoNome = uniqid('ImagemCategoria_', true) . '.' . $extensao;
+                $novoNome = uniqid('ImagemProduto_', true) . '.' . $extensao;
                 $caminhoFinal = $pastaDestino . $novoNome;
 
-                if (!move_uploaded_file($imagem['tmp_name'], $caminhoFinal)) {
-                    $errImg = "Falha ao mover a imagem para o destino.";
-                }
-            }
-
-            $entity = new Produto();
-            $entity->nome = $titulo;
-            $entity->preco = $preco;
-            $entity->avaliacao = "";
-            $entity->quantidade = $estoque;
-            $entity->cor = $cor;
-            $entity->altura = $altura;
-            $entity->largura = $largura;
-            $entity->imagem = $caminhoFinal;
-            $entity->descricao = $descricao;
-            $entity->tipo = "Da loja";
-            $entity->status_produto = $status;
-            $entity->categoria_id_categoria = $categoria;
-
-       
-
-            $resultado = $entity->atualizarProduto($id_produto);
-            if($resultado){
-                $mostrarModal = true; // ativa o modal verdinho
-                if($mostrarModal == true){
-                    echo '<meta http-equiv="refresh" content="1.9">'; //
+                if (move_uploaded_file($imagem['tmp_name'], $caminhoFinal)) {
+                    // Apaga imagem anterior, se for diferente
+                    if (file_exists($produto->imagem) && $produto->imagem !== $caminhoFinal) {
+                        unlink($produto->imagem);
+                    }
+                    $imagemNova = $caminhoFinal;
+                } else {
+                    $errImagem = "Falha ao mover a imagem para o destino.";
                 }
             }
         }
 
-        else if(empty($imagem)){
+        // Se não houve erro de imagem, continua
+        if (empty($errImagem)) {
             $entity = new Produto();
             $entity->nome = $titulo;
             $entity->preco = $preco;
-            $entity->avaliacao = "";
+            $entity->avaliacao = ""; // Se não for usado, pode remover
             $entity->quantidade = $estoque;
             $entity->cor = $cor;
             $entity->altura = $altura;
             $entity->largura = $largura;
-            $entity->imagem = $produto->imagem;
+            $entity->imagem = $imagemNova ? $imagemNova : $produto->imagem;
             $entity->descricao = $descricao;
             $entity->tipo = "Da loja";
             $entity->status_produto = $status;
             $entity->categoria_id_categoria = $categoria;
 
             $resultado = $entity->atualizarProduto($id_produto);
-            if($resultado){
-                $mostrarModal = true; // ativa o modal verdinho
-                if($mostrarModal == true){
-                    echo '<meta http-equiv="refresh" content="1.9">'; //
-                } 
-            
+            if ($resultado) {
+                $mostrarModal = true;
+                echo '<meta http-equiv="refresh" content="1.9">';
             } else {
                 echo "<script>
                     Swal.fire({
@@ -151,38 +114,6 @@ if(isset($_POST['carregarDadosProduto'])){
             }
         }
     }
-        // if($resultado){
-        //     $mostrarModal = true; // ativa o modal verdinho
-        //     if($mostrarModal == true){
-        //         echo '<meta http-equiv="refresh" content="1.9">'; //
-        //     } 
-        
-        // } else {
-        //     echo "<script>
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: 'Erro!',
-        //             text: 'Não foi possível atualizar as informações.',
-        //             confirmButtonColor: '#d33'
-        //         });
-        //     </script>";
-        // }
-        // $produto = new Produto();
-        // $produto->nome = $titulo;
-        // $produto->preco = $preco;
-        // $produto->avaliacao = "";
-        // $produto->quantidade = $estoque;
-        // $produto->cor = $cor;
-        // $produto->tamanho = $tamanho;
-        // $produto->imagem = $caminhoFinal;
-        // $produto->descricao = $descricao;
-        // $produto->tipo = "Da loja";
-        // $produto->categoria_id_categoria = $categoria;
-
-        // $resultado = $produto->cadastrarProduto();
-        // if($resultado){
-        //     echo '<script>alert("Cadastrado com Sucesso!")</script>';
-        // }
 }
 
 ?>
@@ -237,8 +168,7 @@ if(isset($_POST['carregarDadosProduto'])){
                                 <input type="file" name="imagemProduto" id="imgInput"  class="imagemCategoria" >
                             </div>
                             <p>Clique na Imagem para Trocar <i class="fa-solid fa-pencil"></i></p>
-                            <p><?= $errImagem;?></p>
-                        <p class="text_tamanho_img" style="color:red;"> <?= $errImagem; ?> </p>
+                            <p style="color: red;"><?= $errImagem;?></p>
                     </div>
                 </div>
                 <div class="conatiner_cadastro_adm_items_body">

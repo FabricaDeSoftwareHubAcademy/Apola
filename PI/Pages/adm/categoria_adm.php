@@ -1,7 +1,6 @@
 <?php
 
-include "nav_bar_adm.php";
-
+include 'nav_bar_adm.php';
 
 $err = '';
 $errImg = '';
@@ -15,17 +14,17 @@ $categoria = $entity->SelectCategoriaPorId($id_categoria);
 // print_r($categoria);
 
 
-if(isset($_POST['carregarDadosCategoria'])){
+if (isset($_POST['carregarDadosCategoria'])) {
     $titulo = $_POST['tituloCategoria'];
     $status = $_POST['selectStatus'];
-    // print_r("nome: " .$titulo);
-    // print_r("status: " .$status);
-    // print_r("imagem: " .$categoria->imagem);
-    // exit;
-    if (isset($_FILES['imagemCategoria']) && $_FILES['imagemCategoria']['error'] === UPLOAD_ERR_OK) {
+
+    $entity->nome = $titulo;
+    $entity->status_categoria = $status;
+
+    // Verifica se um novo arquivo foi enviado e não está vazio
+    if (isset($_FILES['imagemCategoria']) && $_FILES['imagemCategoria']['error'] === UPLOAD_ERR_OK && $_FILES['imagemCategoria']['size'] > 0) {
         $extensoesPermitidas = ['png', 'jpg', 'jpeg', 'jfif'];
         $pastaDestino = '../../src/imagens/categorias/';
-
         $imagem = $_FILES['imagemCategoria'];
         $nomeOriginal = $imagem['name'];
         $extensao = strtolower(pathinfo($nomeOriginal, PATHINFO_EXTENSION));
@@ -36,45 +35,29 @@ if(isset($_POST['carregarDadosCategoria'])){
             $novoNome = uniqid('ImagemCategoria_', true) . '.' . $extensao;
             $caminhoFinal = $pastaDestino . $novoNome;
 
-            if (!move_uploaded_file($imagem['tmp_name'], $caminhoFinal)) {
+            if (move_uploaded_file($imagem['tmp_name'], $caminhoFinal)) {
+                $entity->imagem = $caminhoFinal;
+
+                // Deleta imagem anterior se for diferente
+                if (file_exists($categoria->imagem) && $categoria->imagem !== $caminhoFinal) {
+                    unlink($categoria->imagem);
+                }
+            } else {
                 $errImg = "Falha ao mover a imagem para o destino.";
             }
         }
-
-        $entity->nome = $titulo;
-        $entity->status_categoria = $status;
-        $entity->imagem = $caminhoFinal;
-        $resultado = $entity->atualizarCategoria($id_categoria);
-        if($resultado){
-            $mostrarModal = true; // ativa o modal verdinho
-            if($mostrarModal == true){
-                echo '<meta http-equiv="refresh" content="1.9">'; //
-            } 
-        
-        } else {
-            echo "<script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro!',
-                    text: 'Não foi possível atualizar as informações.',
-                    confirmButtonColor: '#d33'
-                });
-            </script>";
-        }
-    }
-
-    else if(!isset($imagem)){
-        $entity->nome = $titulo;
-        $entity->status_categoria = $status;
+    } else {
+        // Se nenhuma nova imagem for enviada, mantém a atual
         $entity->imagem = $categoria->imagem;
+    }
+
+    // Se não houver erro de imagem, tenta atualizar
+    if (empty($errImg)) {
         $resultado = $entity->atualizarCategoria($id_categoria);
 
-        if($resultado){
-            $mostrarModal = true; // ativa o modal verdinho
-            if($mostrarModal == true){
-                echo '<meta http-equiv="refresh" content="1.9">'; //
-            } 
-        
+        if ($resultado) {
+            $mostrarModal = true;
+            echo '<meta http-equiv="refresh" content="1.9">';
         } else {
             echo "<script>
                 Swal.fire({
@@ -85,12 +68,9 @@ if(isset($_POST['carregarDadosCategoria'])){
                 });
             </script>";
         }
-    }
-
-    else{
-        $errImg = 'Insira uma imagem!';
     }
 }
+
 
 
 ?>
@@ -143,9 +123,8 @@ if(isset($_POST['carregarDadosCategoria'])){
                                 <input type="file" name="imagemCategoria" id="imgInput"  class="imagemCategoria" >
                             </div>
                             <p>Clique na Imagem para Trocar <i class="fa-solid fa-pencil"></i></p>
-                            <p><?= $errImg;?></p>
+                            <p style= "color: red;" ><?= $errImg;?></p>
                             <p class="text_tamanho_img">Tamanho recomendavel (1700x700px)</p>
-                            <p class="text_tamanho_img" style="color:red;"> <?= $errImg; ?> </p>
                         </div>
 
                     </div>
