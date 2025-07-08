@@ -15,6 +15,12 @@ else {
     include 'navbar_deslogado.php';
 }
 
+if(isset($_GET['id_produto'])){
+    $id_produto = $_GET['id_produto'];
+}
+$produto = new Produto();
+$result = $produto->buscarProdutoPorId($id_produto);
+
 
 ?>
 
@@ -29,26 +35,20 @@ else {
                     <script src="../../src/JS/comprar_produto.js" defer></script>
                     <div class="product-thumb-container">
                         <div class="thumbnail-images">
-                            <img src="../../src/imagens/imagem/225f5e94-7dfc-4418-a796-525a9e654ca6 2.png" alt="urso 1" class="thumbnail" data-image="../../src/imagens/imagem/225f5e94-7dfc-4418-a796-525a9e654ca6 2.png">
-                            <img src="../../src/imagens/imagem/Amigurumi em Casa 2.png" alt="urso 2" class="thumbnail" 
-                            data-image="../../src/imagens/imagem/Amigurumi em Casa 2.png">
-                            <img src="../../src/imagens/imagem/Miniature Crochet Animals By Mohustore 2.png" alt="urso 3" class="thumbnail"
-                            data-image="../../src/imagens/imagem/Miniature Crochet Animals By Mohustore 2.png">
-                            <img src="../../src/imagens/imagem/🐼🐻SOMOS OSOS AMIGURUMIS 🐼🐻 - CROCHET -  BÁSICO🐼🐻 2.png" alt="urso 4" class="thumbnail" data-image="../../src/imagens/imagem/🐼🐻SOMOS OSOS AMIGURUMIS 🐼🐻 - CROCHET -  BÁSICO🐼🐻 2.png">
+                            <img src="<?php echo $result->imagem ?>" class="thumbnail" data-image="../../src/imagens/imagem/🐼🐻SOMOS OSOS AMIGURUMIS 🐼🐻 - CROCHET -  BÁSICO🐼🐻 2.png">
                         </div>
                         <div class="image-gallery">
                             <div class="image-gallery-urso">
-                                <img src="../../src/imagens/imagem/225f5e94-7dfc-4418-a796-525a9e654ca6 2.png" id="main-image">
+                                <img src="<?php echo $result->imagem; ?>" id="main-image">
                             </div>
                             <div class="zoom-result" id="zoom-result"></div>
                         </div>
                     </div>
                     <script src="../../src/JS/comprar_produto.js"></script>
-
                     <div class="product-details">
                         <div class="product-details_left">
                             <div class="container_name_produto">
-                                <h6>Amigurumi Urso sem Curso</h6>
+                                <h6><?php echo $result->nome ?></h6>
                                 <i class="fa-solid fa-heart"></i>
                             </div>
                             <div class="container_avaliacao_produto">
@@ -61,26 +61,23 @@ else {
                             <div class="item_flex_produto">
                                 <label for="">Cor</label>
                                 <div class="item_flex_cor_produto">
-                                    <div class="shape_cor_produto"></div>
-                                    <div class="shape_cor_produto"></div>
-                                    <div class="shape_cor_produto"></div>
-                                    <div class="shape_cor_produto"></div>
+                                     
+                                    <div style="background-color: <?php echo $result->cor; ?>" class="shape_cor_produto"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item_flex_produto">
                                 <label for="">tamanho</label>
                                 <div class="item_flex_cor_produto">
-                                    <div class="shape_tamanho_produto">10 cm</div>
-                                    <div class="shape_tamanho_produto">15 cm</div>
-                                    <div class="shape_tamanho_produto">20 cm</div>
-                                    <div class="shape_tamanho_produto">25 cm</div>
+                                    <div class="shape_tamanho_produto">Altura <?php echo $result->altura; ?> cm</div>
+                                    <div class="shape_tamanho_produto">Largura <?php echo $result->largura; ?> cm</div>
                                 </div>
                             </div>
                         </div>
                         <div class="product-details_right">
                             <div class="container_preco_produto">
-                                <span class="preco_antigo_produto">De R$ 122,69 </span>
-                                <span class="preco_novo_produto">R$<div id="valor_produt">99.98</div></span>
+                                <!-- <span class="preco_antigo_produto">Preço </span> -->
+                                <span class="preco_novo_produto">Preço R$<div id="valor_produt"><?php echo $result->preco; ?></div></span>
                             </div>
                             
                             <div class="container_cep_produto">
@@ -154,7 +151,7 @@ else {
                         </div>
                     </div>
                     <div class="descricao_produto_solo_cont_body">
-                       <div class="descricao_solo">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis, quasi illum molestias exercitationem rerum cum illo maxime cupiditate labore nisi. Optio perferendis, velit ipsam reprehenderit sequi repellat consequatur earum tempore! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe, beatae, blanditiis rerum voluptatem sit vero incidunt non odio debitis cum mollitia voluptates aperiam reprehenderit, quaerat esse deserunt expedita. Ut, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illo asperiores in cupiditate. Possimus alias id quis aliquid perferendis quia cupiditate voluptatem tenetur iure. Tempora consectetur odio excepturi obcaecati praesentium? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus molestiae, officiis ex mollitia, eaque rerum debitis explicabo dicta minus incidunt ipsam quaerat non perspiciatis possimus exercitationem optio facilis qui ad. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia sint aliquam aliquid excepturi, laborum molestiae quia voluptas dolorem placeat fuga porro! Obcaecati debitis distinctio dolorum quis, repellat recusandae alias maiores?  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate, maxime vitae. Quam praesentium ex molestiae, nobis obcaecati pariatur veritatis id commodi architecto voluptatibus sapiente error corrupti ab provident soluta aliquid?</div>
+                       <div class="descricao_solo"><?php echo $result->descricao ?></div>
                     </div>
                     <div class="shape_solo"></div>
                 </div>

@@ -49,7 +49,7 @@ $produtosAleatorios = Produto::buscarProdutoAleatorio();
 
 
 $categorias = Categoria::buscarCategoriaLimit('RAND()',null,3);
-
+print_r($categorias);
 $categoriasAll =  Categoria::buscarCategoriaLimit(null, 'BY RAND()',6);
 
 
@@ -130,7 +130,7 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
                         foreach ($categoriasAll as $categoria) {
                             echo'
                             <li class="item_cards_categoria">
-                                <a class="link_cards_categoria" href="./categorias.php">
+                                <a class="link_cards_categoria" href="./categorias.php?id_categoria='. $categoria->id_categoria .'">
                                     <div class="img_content_categoria">
                                         <img src="'.$categoria->imagem.'" alt="">
                                     </div>
@@ -190,7 +190,7 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
                                     <div class="preco_card_produto">R$ '.number_format($produto['preco'], 2, ',', '.').'</div>
                                     <div class="btn_content_card_produto">
                                         <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i></div>
-                                        <div class="btn_buy_card">Comprar</div>
+                                        <a href="./comprar_produto.php?id_produto='. $produto['id_produto'] .'"class="btn_buy_card">Comprar</a>
                                     </div>
                                 </div>
                             </div>
@@ -280,8 +280,7 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
                                         </div>
                                         <div class="preco_card_produto">R$ '. $produto['preco'] .'</div>
                                         <div class="btn_content_card_produto">
-                                            <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i></div>
-                                            <div class="btn_buy_card">Comprar</div>
+                                            <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i><a href="./comprar_produto.php?id_produto='.$produto['id_produto'].'"class="btn_buy_card">Comprar</a>
                                         </div>
                                     </div>
                                 <!-- </a> -->

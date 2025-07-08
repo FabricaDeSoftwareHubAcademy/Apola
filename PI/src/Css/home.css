@@ -900,7 +900,6 @@ BANNER PROMOCIONAL FINAL */
 
 .banner_card{
     display: grid;
-    height: 40vh;
     width: 100%;
 }
 
@@ -1127,14 +1126,13 @@ list_cards_categoria .item_cards_categoria
 
 .banner_card{
     display: grid;
-    height: 50vh;
+    height: 60vh;
     width: 100%;
 }
 
 
 .banner_card_1{
     grid-area: banner1;
-    height: 60%;
     width: 100%;
     display: flex;
     padding: 5px;
@@ -1144,7 +1142,6 @@ list_cards_categoria .item_cards_categoria
 
 .banner_card_2{
     grid-area:  banner2;
-    height:60% ;
     display: flex;
     width: 100%;
     border-radius: 5px;
@@ -1157,7 +1154,6 @@ list_cards_categoria .item_cards_categoria
 
 .banner_card_3{
     grid-area:  banner3;
-    height: 50%;
     display: flex;
     width: 100%;
 }
@@ -1387,7 +1383,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_1{
         grid-area: banner1;
-        height: 70%;
         width: 100%;
         display: flex;
         padding: 5px;
@@ -1397,7 +1392,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_2{
         grid-area:  banner2;
-        height:70% ;
         display: flex;
         width: 100%;
         border-radius: 5px;
@@ -1410,7 +1404,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_3{
         grid-area:  banner3;
-        height: 50%;
         display: flex;
         width: 100%;
     }
@@ -1642,7 +1635,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_1{
         grid-area: banner1;
-        height: 80%;
         width: 100%;
         display: flex;
         padding: 5px;
@@ -1652,7 +1644,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_2{
         grid-area:  banner2;
-        height:82% ;
         display: flex;
         width: 100%;
         border-radius: 5px;
@@ -1665,7 +1656,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_3{
         grid-area:  banner3;
-        height: 50%;
         display: flex;
         width: 100%;
     }
@@ -1897,7 +1887,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_1{
         grid-area: banner1;
-        height: 90%;
         width: 100%;
         display: flex;
         padding: 5px;
@@ -1907,7 +1896,6 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_2{
         grid-area:  banner2;
-        height:100% ;
         display: flex;
         width: 90%;
         border-radius: 5px;
@@ -1919,9 +1907,8 @@ BANNER PROMOCIONAL FINAL */
     
     .banner_card_3{
         grid-area:  banner3;
-        height: 90%;
         display: flex;
-        width: 100%;
+        width: 90%;
     }
     
     
