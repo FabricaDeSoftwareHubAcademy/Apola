@@ -35,7 +35,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                     <script src="../../src/JS/comprar_produto.js" defer></script>
                     <div class="product-thumb-container">
                         <div class="thumbnail-images">
-                            <img src="<?php echo $result->imagem ?>" class="thumbnail" data-image="../../src/imagens/imagem/🐼🐻SOMOS OSOS AMIGURUMIS 🐼🐻 - CROCHET -  BÁSICO🐼🐻 2.png">
+                            <img src="<?php echo $result->imagem ?>" class="thumbnail" data-image="<?php echo $result->imagem ?>">
                         </div>
                         <div class="image-gallery">
                             <div class="image-gallery-urso">

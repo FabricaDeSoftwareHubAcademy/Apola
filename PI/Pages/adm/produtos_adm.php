@@ -149,6 +149,9 @@ if (isset($_POST['carregarDadosProduto'])) {
                         </div>
                         <div class="item_flex_adm">
                             <label for="">Categoria</label>
+                            <script>
+                                const categoriaSelecionada = <?= $produto->categoria_id_categoria ?>;
+                            </script>
                             <select name="selectCategoria" id="dadosTodasCategoria">
                                 <!-- <option value="">Amigurumi</option>
                                 <option value="">Cachepô</option> -->
