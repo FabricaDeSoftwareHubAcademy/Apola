@@ -38,7 +38,8 @@ class ProdutoPerso extends Pedido{
                     'tipo' => $this->tipo,
                     'status_pedido' => $this->status_pedido,
                     'codigo_rastreio' => $this->codigo_rastreio,
-                    'produto_perso_id_produto_perso' => $res_id
+                    'produto_perso_id_produto_perso' => $res_id,
+                    'id_cliente' =>$this->id_cliente
                 ]);
         
                 return $resPedido; // Retorna true se deu tudo certo

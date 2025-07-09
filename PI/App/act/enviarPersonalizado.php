@@ -7,10 +7,10 @@ header("Access-Control-Allow-Origin: *");
 header('Cache-Control: no-cache, must-revalidate'); 
 header("Content-Type: application/json; charset=UTF-8");
 header("HTTP/1.1 200 OK");
-// if(isset($_SESSION)){
-//     $id_cliente = $_SESSION['cliente']['id_cliente'];
-//     print_r($id_cliente);  
-// }
+if(isset($_SESSION)){
+    $id_cliente = $_SESSION['cliente']['id_cliente'];
+    // print_r($id_cliente);  
+}
 $mensagem = $_POST['mensagem'] ?? '';
 
 if (isset($_FILES['imagens']) && count($_FILES['imagens']['name']) > 0) {
@@ -63,6 +63,7 @@ if (isset($_FILES['imagens']) && count($_FILES['imagens']['name']) > 0) {
     $produtoPerso->tipo = "personalizado";
     $produtoPerso->status_pedido = "A pagar";
     $produtoPerso->codigo_rastreio = null;
+    $produtoPerso->id_cliente = $id_cliente;
 
     /*Inserção na tabela produto_perso*/
     $produtoPerso->descricao = $mensagem;

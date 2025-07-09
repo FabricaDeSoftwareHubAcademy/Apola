@@ -7,6 +7,7 @@ class Pedido {
     public string $status_pedido;
     public ?string $codigo_rastreio;
     public ?int $produto_perso_id_produto_perso;
+    public ?int $id_cliente;
     
     public function cadastrar(){
         $db = new Database('pedido');
