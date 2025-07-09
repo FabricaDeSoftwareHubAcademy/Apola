@@ -64,7 +64,7 @@ class Produto{
     }
 
     public static function buscarProduto($where=null, $order =null, $limit = null){
-
+        // print_r($where);
         return (new Database('produto'))->select($where,$order,$limit)
                                         ->fetchAll(PDO::FETCH_CLASS,self::class);
 

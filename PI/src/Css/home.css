@@ -281,7 +281,7 @@
     padding: 10px 0px 0px 10px;
     width: 240px;
     border-radius: 5px;
-    height: 350px;
+    height: auto;
     justify-content: center;
     align-items: center;
 }
@@ -334,6 +334,8 @@
 
 
 .conteudo_card{
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     padding-top: 1rem;

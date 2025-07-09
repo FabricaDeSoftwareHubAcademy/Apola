@@ -60,7 +60,6 @@ foreach ($categorias as $categoria) {
     array_push($categoriaArray, $categoria->nome);
 
 }
-
 $produtoCategoria1 = Produto::buscarProdutoCategoria($categoriaArray[0]);
 $produtoCategoria2 = Produto::buscarProdutoCategoria($categoriaArray[1]);
 $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
@@ -368,7 +367,7 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
 
                 foreach ($categorias as $categoria) {
                     echo'
-                    <a href="./categorias.php" class="item_card_cat_2" style="text-decoration: none; color: inherit;">
+                    <a href="./categorias.php?id_categoria='. $categoria->id_categoria .'" class="item_card_cat_2" style="text-decoration: none; color: inherit;">
                         <img src=" '.$categoria->imagem.' " alt="" class="img_card_cat_2">
                         <div class="overlay_cat_2"></div>
                         <span class="text_card_cat_2">'.$categoria->nome.'</span>

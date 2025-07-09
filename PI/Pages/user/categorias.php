@@ -20,6 +20,17 @@ if($result){
 }
 
 
+if(isset($_GET['id_categoria'])){
+    $id_categoria = $_GET['id_categoria'];
+}
+
+$produto = new Produto();
+$produtos = $produto->buscarProduto("categoria_id_categoria = ".$id_categoria);
+
+// if($produtos)
+
+
+
 ?>
     <main  class="main2">
         <div class="container_categorias">
@@ -146,11 +157,11 @@ if($result){
 
 
             <aside class="left_categoria">
-                <div class="container_title_left_categoria">
+                <!-- <div class="container_title_left_categoria">
                     <h6 class="title_left_categoria">Home</h6>
                     <h6 class="title_left_categoria">/</h6>
                     <h6 class="title_left_categoria">Amigurumi</h6>
-                </div>
+                </div> -->
                 <div class="conatiner_input_preco">
                     <h6 class="title_left_categoria  title_left_categoria_mobile">Faixa de Preço</h6>
                     <input type="range" id="preco" name="preco" min="0" max="1000" step="10" oninput="document.getElementById('rangeValue').innerText = this.value">
@@ -257,52 +268,44 @@ if($result){
                     </select>
                 </div>
                 <div class="wrap__filtro_right">
-                    <a  style ="text-decoration:none;"class="link_produto_home" href="./comprar_produto.php">
+                    <!-- <a  style ="text-decoration:none;"class="link_produto_home" href="./comprar_produto.php"> -->
+                    <?php
+                    foreach ($produtos as $prod): 
+                        if($prod->status_produto === 'a'):
+                    ?>
+                        <div class="card_produto" style="max-width: 40%;">
+                            <div class="icon_favorite">
+                                <label class="checkbox-heart">
+                                    <input class="input-check" type="checkbox"
+                                        data-status="<?= $prod->status_favoritos ?? '' ?>"
+                                        data-id="<?= $prod->id_produto ?>"
+                                        <?= !empty($prod->status_favoritos) ? 'checked' : '' ?>>
+                                    <i class="fa-solid fa-heart"></i>
+                                </label> 
+                            </div>
+                            <div class="img_content_produto">
+                                <img src="<?= $prod->imagem ?>" alt="<?= htmlspecialchars($prod->nome) ?>">
+                            </div>
+                            <div class="conteudo_card">
+                                <div class="nome_card_produto"><?= htmlspecialchars($prod->nome) ?></div>
+                                <div class="content_star_icon">
+                                    <?php for ($i = 0; $i < 5; $i++): ?>
+                                        <i class="fa-solid fa-star"></i>
+                                    <?php endfor; ?>
+                                </div>
+                                <div class="preco_card_produto">R$ <?= number_format($prod->preco, 2, ',', '.') ?></div>
+                                <div class="btn_content_card_produto">
+                                    <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i></div>
+                                    <a href="./comprar_produto.php?id_produto=<?= $prod->id_produto ?>" class="btn_buy_card">Comprar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                            endif;
+                        endforeach;
+                        ?>
+                    <!-- <a  style ="text-decoration:none;"class="link_produto_home" href="./comprar_produto.php">
                     <div class="card_produto">
-                        <div class="icon_favorite"><i class="fa-solid fa-heart"></i></div>
-                        <div class="img_content_produto">
-                            <img src="../../src/imagens/card_produto/IMG1-Produto.png" alt="">
-                        </div>
-                        <div class="conteudo_card">
-                            <div class="nome_card_produto">Amigurmi Raposa</div>
-                            <div class="content_star_icon">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <div class="preco_card_produto">R$ 50,89</div>
-                            <div class="btn_content_card_produto">
-                                <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i></div>
-                                <button class="btn_buy_card" href="./comprar_produto.php">Comprar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <a  style ="text-decoration:none;"class="link_produto_home" href="./comprar_produto.php">
-                    <div class="card_produto">
-                        <div class="icon_favorite"><i class="fa-solid fa-heart"></i></div>
-                        <div class="img_content_produto">
-                            <img src="../../src/imagens/card_produto/IMG1-Produto.png" alt="">
-                        </div>
-                        <div class="conteudo_card">
-                            <div class="nome_card_produto">Amigurmi Raposa</div>
-                            <div class="content_star_icon">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <div class="preco_card_produto">R$ 50,89</div>
-                            <div class="btn_content_card_produto">
-                                <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i></div>
-                                <div class="btn_buy_card">Comprar</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card_produto">
-                    <a  style ="text-decoration:none;"class="link_produto_home" href="./comprar_produto.php">
                         <div class="icon_favorite"><i class="fa-solid fa-heart"></i></div>
                         <div class="img_content_produto">
                             <img src="../../src/imagens/card_produto/IMG1-Produto.png" alt="">
@@ -346,6 +349,7 @@ if($result){
                         </div>
                     </div>
                     <div class="card_produto">
+                    <a  style ="text-decoration:none;"class="link_produto_home" href="./comprar_produto.php">
                         <div class="icon_favorite"><i class="fa-solid fa-heart"></i></div>
                         <div class="img_content_produto">
                             <img src="../../src/imagens/card_produto/IMG1-Produto.png" alt="">
@@ -366,6 +370,27 @@ if($result){
                             </div>
                         </div>
                     </div>
+                    <div class="card_produto">
+                        <div class="icon_favorite"><i class="fa-solid fa-heart"></i></div>
+                        <div class="img_content_produto">
+                            <img src="../../src/imagens/card_produto/IMG1-Produto.png" alt="">
+                        </div>
+                        <div class="conteudo_card">
+                            <div class="nome_card_produto">Amigurmi Raposa</div>
+                            <div class="content_star_icon">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div class="preco_card_produto">R$ 50,89</div>
+                            <div class="btn_content_card_produto">
+                                <div class="btn_bag_card"><i class="fa-solid fa-bag-shopping"></i></div>
+                                <div class="btn_buy_card">Comprar</div>
+                            </div>
+                        </div>
+                    </div> -->
 
                 </div>
 

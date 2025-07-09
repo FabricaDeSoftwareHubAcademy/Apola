@@ -154,7 +154,7 @@
                                             
                                             echo'
                                             <div class="row">
-                                                <h3 class="Title-cat"><a href="./categorias.php">'.$categoria->nome.'</a></h3>
+                                                <h3 class="Title-cat"><a href="./categorias.php?id_categoria='. $categoria->id_categoria .'">'.$categoria->nome.'</a></h3>
                                                 <ul class="mega-links">
                                                     <!-- <li><a href="">Amigurumi Cacto</a></li>
                                                     <li><a href="">Amigurumi Cacto</a></li>

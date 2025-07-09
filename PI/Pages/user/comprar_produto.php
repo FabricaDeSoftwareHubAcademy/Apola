@@ -144,7 +144,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                 <div class="descricao_produto_solo_cont">
                     <div class="descricao_produto_solo_cont_header">
                         <div class="title_produto_solo_item">
-                            Descrição <i class="fa-solid fa-chevron-down"></i>
+                            Descrição <!-- <i class="fa-solid fa-chevron-down"></i> -->
                         </div>
                         <div  id="icone_produto_solo_item" class="icone_produto_solo_item">
                             <i class="fa-solid fa-chevron-up"></i>
@@ -158,7 +158,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                 <div class="descricao_produto_solo_cont">
                     <div class="descricao_produto_solo_cont_header">
                         <div class="title_produto_solo_item">
-                            Avaliação <i class="fa-solid fa-chevron-down"></i>
+                            Avaliação <!-- <i class="fa-solid fa-chevron-down"></i> -->
                         </div>
                         <div id="icone_produto_solo_item" class="icone_produto_solo_item">
                             <i class="fa-solid fa-chevron-up"></i>

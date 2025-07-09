@@ -5,7 +5,6 @@ require '../../App/config.inc.php';
 
 require '../../App/Session/Login.php';
 
-Login::RequireLogout();
 
 
 $erro = '';

@@ -7,7 +7,6 @@ require_once '../../App/Entity/Adm.class.php';
 
 require '../../App/Session/Login.php';
 
-// Login::RequireLogout();
 
 session_start();
 
