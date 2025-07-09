@@ -77,7 +77,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                         <div class="product-details_right">
                             <div class="container_preco_produto">
                                 <!-- <span class="preco_antigo_produto">Preço </span> -->
-                                <span class="preco_novo_produto">Preço R$<div id="valor_produt"><?php echo $result->preco; ?></div></span>
+                                <span class="preco_novo_produto">R$ <div id="valor_produt"><?php echo $result->preco; ?></div></span>
                             </div>
                             
                             <div class="container_cep_produto">
