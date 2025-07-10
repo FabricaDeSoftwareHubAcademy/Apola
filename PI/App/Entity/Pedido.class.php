@@ -5,13 +5,14 @@ class Pedido {
     public string $data_pedido;
     public string $tipo;
     public string $status_pedido;
-    public ?string $codigo_rastreio;
+    public ?string $codigo_rastreio = null;
     public ?int $produto_perso_id_produto_perso;
     public ?int $id_cliente;
     
     public function cadastrar(){
         $db = new Database('pedido');
         $result = $db->insert([
+            // inserir os campos e valores
         ]);
 
         return $result ? true : false;
@@ -19,6 +20,7 @@ class Pedido {
     public function cadastrarPerso($id){
         $db = new Database('pedido');
         $result = $db->insert([
+            // inserir os campos e valores
         ]);
 
         return $result ? true : false;
@@ -30,6 +32,7 @@ class Pedido {
 
     public function atualizar(){
         return (new Database('pedido'))->update('sacola_id_sacola = '.$this->sacola_id_sacola,[
+            // campos para atualizar
         ]);
     }
 
@@ -37,13 +40,13 @@ class Pedido {
         return (new Database('pedido'))->select_pedido($where);
     }
     
-
     public static function buscar_pedido_by_id($id){
         return (new Database('pedido'))->select_pedido_by_id($id)->fetchObject(self::class);
     }
     public static function buscar_pedidoperso_by_id($id){
         return (new Database('pedido'))->select_pedido_personalizado_by_id($id)->fetchObject(self::class);
     }
+    
 
     public function excluir($sacola_id){
         return (new Database('pedido'))->delete('sacola_id_sacola = '.$sacola_id);

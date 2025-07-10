@@ -197,6 +197,8 @@ create table pedido(
     foreign key(sacola_cliente_id_cliente) references sacola(cliente_id_cliente), 
     produto_perso_id_produto_perso int default null,
     foreign key(produto_perso_id_produto_perso) references produto_perso(id_produto_perso),
+    id_cliente int not null,
+    foreign key(id_cliente) references cliente(id_cliente),
     
     constraint primary key(id_pedido)
 ); 

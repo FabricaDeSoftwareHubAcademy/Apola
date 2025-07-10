@@ -1,9 +1,31 @@
-document.querySelectorAll('p.n_item_dados[data-status-pedido]').forEach(p => {
-    const status = p.getAttribute('data-status-pedido');
-    if (counts.hasOwnProperty(status)) {
-        p.textContent = `N° ${counts[status]}`;
+async function carregarContadores() {
+    try {
+        const res = await fetch('../../App/Session/get_pedidos_status_count.php');
+        const counts = await res.json();
+
+        document.querySelectorAll('p.n_item_dados[data-status-pedido]').forEach(p => {
+            const status = p.getAttribute('data-status-pedido');
+            if (status === "total") {
+                p.textContent = `N° ${counts.total}`;
+            } else if (status === "pagar") {
+                p.textContent = `N° ${counts["A pagar"]}`;
+            } else if (status === "producao") {
+                p.textContent = `N° ${counts["Produção"]}`;
+            } else if (status === "envio") {
+                p.textContent = `N° ${counts["Envio"]}`;
+            } else if (status === "entregue") {
+                p.textContent = `N° ${counts["Entregue"]}`;
+            }
+        });
+    } catch (error) {
+        console.error("Erro ao carregar contadores:", error);
     }
-});
+}
+
+// Chamar junto com a tabela
+load_table();
+carregarContadores();
+
 function filtrarPedidos(status) {
     fetch('../../App/Session/carrega_tabela_pedido.php?status=' + encodeURIComponent(status))
         .then(response => response.json())
@@ -12,9 +34,13 @@ function filtrarPedidos(status) {
             let html = '';
 
             data.forEach(pedido => {
+                let valorTratado = pedido.Valor;
+                if (!valorTratado || valorTratado === null) {
+                    valorTratado = '0.00';
+                }
                 html += `<tr>
                     <td>${pedido.ID}</td>
-                    <td>${pedido.Valor}</td>
+                    <td>${valorTratado}</td>
                     <td>${pedido.Tipo}</td>
                     <td>${pedido.UF}</td>
                     <td>`;
@@ -54,13 +80,13 @@ async function load_table(){
 
     let dados_php = await fetch('../../App/Session/carrega_tabela_pedido.php');
     let response = await dados_php.json();
-    // console.log(response);   
+    // console.log(response);
     for(var i = 0; i < response.length; i++){
         html += '<tr>';
         html += '<td>';
         html += response[i].ID;
         html += '<td>';
-        html += response[i].Valor;
+        html += response[i].Valor ?? '0.00';
         html += '<td>';
         html += response[i].Tipo;
         html += '<td>';

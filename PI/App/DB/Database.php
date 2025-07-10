@@ -177,17 +177,13 @@ clASs Database{
                 pedido.status_pedido AS Status,
                 pedido.data_pedido AS DataPedido,
                 pedido.codigo_rastreio AS Rastreio,
-    
-                -- Valores para pedidos 'disponível'
                 sacola.valor_total AS Valor,
-                cliente.estado AS UF,
-    
-                -- Informações do produto personalizado (se houver)
+                COALESCE(cliente1.estado, cliente2.estado) AS UF,
                 produto_perso.descricao AS DescricaoPersonalizada
-    
             FROM pedido
             LEFT JOIN sacola ON pedido.sacola_id_sacola = sacola.id_sacola
-            LEFT JOIN cliente ON sacola.cliente_id_cliente = cliente.id_cliente
+            LEFT JOIN cliente cliente1 ON sacola.cliente_id_cliente = cliente1.id_cliente
+            LEFT JOIN cliente cliente2 ON pedido.id_cliente = cliente2.id_cliente
             LEFT JOIN produto_perso ON pedido.produto_perso_id_produto_perso = produto_perso.id_produto_perso
         ";
     
@@ -197,6 +193,7 @@ clASs Database{
     
         return $this->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     
 
     public function select_by_id($id){
@@ -278,36 +275,39 @@ clASs Database{
     }
     public function select_pedido_personalizado_by_id($id){
         $query = "SELECT 
-                    produto_perso.tipo AS tipo_produto,
-                    produto_perso.descricao AS descricao_personalizada,
-                    imagens_produto_perso.imagem1,
-                    imagens_produto_perso.imagem2,
-                    imagens_produto_perso.imagem3,
-                    imagens_produto_perso.imagem4,
-                    sacola.valor_total AS valor_total,
-                    pedido.codigo_rastreio AS rastreio,
-                    pedido.status_pedido AS status_pedido,
-                    cliente.telefone AS contato,
-                    cliente.cep AS cep,
-                    cliente.rua AS rua,
-                    cliente.numero_casa AS numero,
-                    cliente.bairro AS bairro,
-                    cliente.cidade AS cidade,
-                    cliente.estado AS estado,
-                    usuario.nome AS nome_cliente,
-                    cliente.sobrenome AS sobrenome
-                FROM pedido
-                JOIN sacola ON pedido.sacola_id_sacola = sacola.id_sacola
-                JOIN cliente ON pedido.sacola_cliente_id_cliente = cliente.id_cliente
-                JOIN usuario ON cliente.id_usuario = usuario.id_usuario
-                JOIN produto_perso ON pedido.produto_perso_id_produto_perso = produto_perso.id_produto_perso
-                LEFT JOIN imagens_produto_perso ON produto_perso.id_produto_perso = imagens_produto_perso.id_produto_perso
-                WHERE pedido.id_pedido = ?";
+        produto_perso.tipo AS tipo,
+        produto_perso.descricao AS descricao_personalizada,
+        imagens_produto_perso.imagem1,
+        imagens_produto_perso.imagem2,
+        imagens_produto_perso.imagem3,
+        imagens_produto_perso.imagem4,
+        IFNULL(pedido.codigo_rastreio, '0') AS codigo_rastreio,
+        IFNULL(sacola.valor_total, 0) AS valor_total,
+        pedido.status_pedido,
+        pedido.data_pedido,
+        cliente.telefone AS contato,
+        cliente.cep,
+        cliente.rua,
+        cliente.numero_casa AS numero,
+        cliente.bairro,
+        cliente.cidade,
+        cliente.estado,
+        usuario.nome AS nome_cliente,
+        cliente.sobrenome,
+        pedido.id_pedido
+    FROM pedido
+    JOIN cliente ON pedido.id_cliente = cliente.id_cliente
+    JOIN usuario ON cliente.id_usuario = usuario.id_usuario
+    JOIN produto_perso ON pedido.produto_perso_id_produto_perso = produto_perso.id_produto_perso
+    LEFT JOIN imagens_produto_perso ON produto_perso.id_produto_perso = imagens_produto_perso.id_produto_perso
+    LEFT JOIN sacola ON pedido.sacola_id_sacola = sacola.id_sacola
+    WHERE pedido.id_pedido = ?
+    ";
         
-        $stmt = $this->execute($query, [$id]);
-    
-        return $stmt;
+        return $this->execute($query, [$id]);
     }
+    
+    
     
 
 
