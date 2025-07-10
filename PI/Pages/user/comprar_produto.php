@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 
 require '../../App/config.inc.php';
@@ -7,6 +8,9 @@ require '../../App/Session/Login.php';
 
 include "head.php";
 
+if(isset($_SESSION)){
+    $id_cliente = $_SESSION['cliente']['id_cliente'];
+}
 
 if (Login::IsLogedCliente()) {
     include 'navbar_logado.php';
@@ -15,11 +19,47 @@ else {
     include 'navbar_deslogado.php';
 }
 
+
+$errEstrelas = '';
+
+
 if(isset($_GET['id_produto'])){
     $id_produto = $_GET['id_produto'];
 }
 $produto = new Produto();
 $result = $produto->buscarProdutoPorId($id_produto);
+
+
+if(isset($_POST['enviarAvaliacaoProduto'])){
+    $comentario = $_POST['comentario'];
+
+    if (isset($_POST['stars'])) {
+        $estrelasMarcadas = count($_POST['stars']);
+        $avaliacaoProduto = new AvaliacaoProduto();
+        $avaliacaoProduto->comentario = $comentario;
+        $avaliacaoProduto->notas = $estrelasMarcadas;
+        $avaliacaoProduto->id_cliente = $id_cliente;
+        $avaliacaoProduto->id_produto = $id_produto;
+
+        $resultAvaliacaoProduto = $avaliacaoProduto->cadastrarAvaliacaoProduto();
+        if($resultAvaliacaoProduto){
+            echo '<script>alert("Avaliado com sucesso!!!!")</script>';
+        }
+    }
+
+    else{
+       
+        echo '<script>alert("Você deve inserir ao menos uma estrela!!")</script>';
+        // echo "<meta http-equiv='refresh' content='2'>";
+    }
+
+   
+
+}
+
+
+$avaliacaoProduto = new AvaliacaoProduto();
+$avaliacoesDoProduto = $avaliacaoProduto->select_avaliacao_produto($id_produto);
 
 
 ?>
@@ -80,7 +120,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                 <span class="preco_novo_produto">R$ <div id="valor_produt"><?php echo $result->preco; ?></div></span>
                             </div>
                             
-                            <div class="container_cep_produto">
+                            <!-- <div class="container_cep_produto">
                                 <div class="item_flex_produto">
                                     <label for="">Cep</label>
                                     <div class="cep_container_input">
@@ -88,7 +128,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                         <button class="btn_cep_produto"><i class="fa-solid fa-truck"></i></button>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>  -->
                             <div class="container_buy_produto none_display">
                                 <dialog id="modal-2">
                                     <div class="modal_header">
@@ -110,7 +150,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                     </div>
                                 </dialog>
                                 <!-- O botão de compra -->
-                                <button class="btn_buy_produto"  data-modal="modal-2">Comprar</button> <!-- AQUIIIIIII -->
+                                <!-- <button class="btn_buy_produto"  data-modal="modal-2">Comprar</button> AQUIIIIIII -->
                                 <script src="../src/JS/modal.js" defer></script>
                                 <!-- O botão da bolsa -->
                                 <button class="btn_bag_produto">
@@ -177,51 +217,71 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                 <h5 class="title_modal_zap">Avaliação</h5>
                                 <div class="text_modal_zap">Gostou do produto? Sua opinião é essencial para que possamos continuar oferecendo a melhor experiência para nossos clientes. </div>
                                 <div class="conatiner_item_modal_link_zap">
-                                    <form action="">
+                                    <form method="POST" id="formularioAvaliacaoProduto">
                                         <div class="item_star_modal">
                                             <div class="conatiner_comentario_star_modal">
                                                 <div class="stars">
-                                                    <input type="checkbox" id="star1" class="star-checkbox">
+                                                   <input type="checkbox" id="star1" name="stars[]" value="1" class="star-checkbox">
                                                     <label for="star1" class="star">&#9733;</label>
-    
-                                                    <input type="checkbox" id="star2" class="star-checkbox">
+
+                                                    <input type="checkbox" id="star2" name="stars[]" value="2" class="star-checkbox">
                                                     <label for="star2" class="star">&#9733;</label>
-    
-                                                    <input type="checkbox" id="star3" class="star-checkbox">
+
+                                                    <input type="checkbox" id="star3" name="stars[]" value="3" class="star-checkbox">
                                                     <label for="star3" class="star">&#9733;</label>
-                                                    
-                                                    <input type="checkbox" id="star4" class="star-checkbox">
+
+                                                    <input type="checkbox" id="star4" name="stars[]" value="4" class="star-checkbox">
                                                     <label for="star4" class="star">&#9733;</label>
-    
-                                                    <input type="checkbox" id="star5" class="star-checkbox">
+
+                                                    <input type="checkbox" id="star5" name="stars[]" value="5" class="star-checkbox">
                                                     <label for="star5" class="star">&#9733;</label>
                                                 </div>
+                                               
                                                 <!-- <i class="fa-solid fa-star " ></i>
                                                 <i class="fa-solid fa-star" ></i>
                                                 <i class="fa-solid fa-star" ></i>
                                                 <i class="fa-solid fa-star" ></i> -->
                                             </div>
-                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                                            
+                                            <textarea name="comentario" id="" cols="30" rows="10" maxlength="750"></textarea>
                                             <div class="container_avalirar_btn">
-                                                <button class="avaliar_btn">Comentar</button>
+                                                <button name="enviarAvaliacaoProduto" class="avaliar_btn">Comentar</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>  
                                 </div>
                             </dialog>
-                            <div class="comentario_item">
-                                <div class="name_comentario">Lucas Nogueira</div>
-                                <div class="conatiner_comentario_star">
-                                    <i class="fa-solid fa-star " id='star_active'></i>
-                                    <i class="fa-solid fa-star" id='star_active'></i>
-                                    <i class="fa-solid fa-star" id='star_active'></i>
-                                    <i class="fa-solid fa-star"></i>
+                            <?php foreach($avaliacoesDoProduto as $ava): ?>
+                                <div class="comentario_item">
+                                    <div class="name_comentario"><?= htmlspecialchars($ava['nome'] .' ' .$ava['sobrenome'])?? ''; ?></div>
+
+                                    <div class="conatiner_comentario_star">
+                                        <?php 
+                                            $nota = (int) $ava['notas']; // Garante que é número inteiro
+                                            for ($i = 1; $i <= 5; $i++):
+                                        ?>
+                                            <?php if ($i <= $nota): ?>
+                                                <i class="fa-solid fa-star" id="star_active"></i>
+                                            <?php else: ?>
+                                                <i class="fa-regular fa-star"></i> <!-- estrela vazia -->
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    </div>
+
+                                    <div class="comentario_text">
+                                        <?= htmlspecialchars($ava['comentario']) ?? 'Sem comentário.' ?>
+                                    </div>  
                                 </div>
-                                <div class="comentario_text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus tempore provident animi iusto dignissimos at beatae eum aspernatur doloribus hic deserunt, voluptatibus consectetur! Explicabo incidunt enim neque magni quod quae.
-                                </div>  
+                            <?php endforeach; ?>
+
+                            <div class="modal-sobre-nois-avaliado">
+                                <div class="conteudo-modal">
+                                    <i class="fa-solid fa-check"></i>
+                                    <p>Avaliado com sucesso!</p>
+                                </div>
                             </div>
-                            <div class="shape_comentario"></div>
+                            <!-- <div class="shape_comentario"></div>
                             <div class="comentario_item">
                                 <div class="name_comentario">Amanda Neto</div>
                                 <div class="conatiner_comentario_star">
@@ -244,7 +304,7 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                 </div>
                                 <div class="comentario_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore eos natus eius neque sint sed maxime id, quo amet corrupti ipsa ut vitae sunt distinctio quis dolor? Est, distinctio dignissimos?
                                 </div>  
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="shape_solo"></div>

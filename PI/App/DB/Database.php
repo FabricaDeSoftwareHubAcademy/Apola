@@ -244,6 +244,19 @@ clASs Database{
 
     }
 
+    public function select_avaliacao_produto($id_produto){
+        $query = "SELECT avaliacao_produto.comentario, avaliacao_produto.notas, usuario.nome, cliente.sobrenome FROM avaliacao_produto
+        JOIN cliente ON avaliacao_produto.id_cliente = cliente.id_cliente JOIN usuario ON cliente.id_usuario = usuario.id_usuario WHERE id_produto = '$id_produto'";
+        $stmt = $this->execute($query)->fetchAll(PDO::FETCH_ASSOC);
+        
+        if($stmt){
+            return $stmt;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function select_pedido_by_id($id){
         $query = "SELECT 
                     produto.nome AS nome_produto, 
