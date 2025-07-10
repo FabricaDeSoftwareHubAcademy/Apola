@@ -13,7 +13,6 @@ class Cliente extends User{
     public ?int $id_cliente = null;
     public string $nome;
     public string $sobrenome;
-    public ?string $foto_perfil;
     public int $cpf;
     public ?string $telefone;
     public ?string $cep;
@@ -23,6 +22,7 @@ class Cliente extends User{
     public ?string $estado;
     public ?string $cidade;
     public int $id_usuario;
+    public ?string $foto_perfil;
 
 
     //atributo tipo perfil

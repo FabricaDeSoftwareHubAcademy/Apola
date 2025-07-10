@@ -74,10 +74,6 @@ clASs Database{
         $query = 'INSERT INTO ' . $this->table .'  (' .implode(',',$fields). ') VALUES (' .implode(',',$binds).')';
 
 
-        // echo $query ;
-        // print_r( array_values($values));
-        // die();
-
 
         $result = $this->execute($query,array_values($values));
 
@@ -152,6 +148,10 @@ clASs Database{
         $fields = array_keys($values);
         $set = implode(' = ?, ', $fields) . ' = ?';
         $query = 'UPDATE ' . $this->table . ' SET ' . $set . ' WHERE ' . $where;
+
+        // print_r($query);
+        // print_r($where);
+        // exit();
     
         return $this->execute($query, array_values($values));
     }

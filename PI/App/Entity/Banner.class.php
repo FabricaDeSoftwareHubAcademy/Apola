@@ -70,6 +70,7 @@ class Banner{
     public function cadastrarBannersMobile() {
         $db = new Database('banners_mobile');
         $result = $db->insert(['caminho' => $this->caminho]);
+
         return $result ? true : false;
     }
 

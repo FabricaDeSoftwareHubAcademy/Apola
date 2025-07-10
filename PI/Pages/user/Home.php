@@ -34,6 +34,10 @@ $bannerPromocionalPosicao1  = $banner->getBannerForPosicao('banners_promocionais
 $bannerPromocionalPosicao2  = $banner->getBannerForPosicao('banners_promocionais',2);
 $bannerPromocionalPosicao3  = $banner->getBannerForPosicao('banners_promocionais',3);
 
+$bannerMobilePosicao1 = $banner->getBannerForPosicao('banners_mobile',1);
+$bannerMobilePosicao2 = $banner->getBannerForPosicao('banners_mobile',2);
+$bannerMobilePosicao3 = $banner->getBannerForPosicao('banners_mobile',3);
+
 
 
 
@@ -49,7 +53,7 @@ $produtosAleatorios = Produto::buscarProdutoAleatorio();
 
 
 $categorias = Categoria::buscarCategoriaLimit('RAND()',null,3);
-print_r($categorias);
+// print_r($categorias);
 $categoriasAll =  Categoria::buscarCategoriaLimit(null, 'BY RAND()',6);
 
 
@@ -60,11 +64,12 @@ foreach ($categorias as $categoria) {
     array_push($categoriaArray, $categoria->nome);
 
 }
+
 $produtoCategoria1 = Produto::buscarProdutoCategoria($categoriaArray[0]);
 $produtoCategoria2 = Produto::buscarProdutoCategoria($categoriaArray[1]);
 $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
 
-
+// print_r($produtoCategoria3);
 
 
 
@@ -108,14 +113,14 @@ $produtoCategoria3 = Produto::buscarProdutoCategoria($categoriaArray[2]);
 
 
         <!-- INICIO BANNER MENU -->
-        <!-- <div class="mySwiperMenu carrosel_menu">
+        <div class="mySwiperMenu carrosel_menu">
             <div class="swiper-wrapper swiper-wrapper_menu">
-              <div class="swiper-slide"><img src="../../src/imagens/img_banner_menu/1.png" alt=""></div>
-              <div class="swiper-slide"><img src="../../src/imagens/img_banner_menu/2.png" alt=""></div>
-              <div class="swiper-slide"><img src="../../src/imagens/img_banner_menu/3.png" alt=""></div>
+              <div class="swiper-slide"><img src="<?= $bannerMobilePosicao1->caminho ?>" alt=""></div>
+              <div class="swiper-slide"><img src="<?= $bannerMobilePosicao2->caminho ?>" alt=""></div>
+              <div class="swiper-slide"><img src="<?= $bannerMobilePosicao3->caminho ?>" alt=""></div>
             </div>
             <div class="swiper-pagination" style="--swiper-pagination-color:rgb(255, 255, 255);"></div>
-        </div> -->
+        </div>
 
 
 

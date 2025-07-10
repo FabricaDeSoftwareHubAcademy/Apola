@@ -1,80 +1,91 @@
 <?php
 
-
 require '../../App/config.inc.php';
-
 require '../../App/Session/Login.php';
-
 include "head.php";
 
 $result = Login::IsLogedCliente();
-if($result){
-    $id_cliente = $_SESSION['cliente']['id_cliente'];
 
-    $objCliente = new Cliente();
-    
-    $cli = $objCliente->getClienteById($id_cliente);
-   
-}
-
-if($result){
-    include "navbar_logado.php";
-    
-}else{
+if (!$result) {
     header('location: login.php');
+    exit;
 }
 
+$id_cliente = $_SESSION['cliente']['id_cliente'];
+
+$objCliente = new Cliente();
+
+$cli = $objCliente->getClienteById($id_cliente);
+
+if (!$cli) {
+    die("Cliente não encontrado.");
+}
+
+include "navbar_logado.php";
 
 if (isset($_POST['carregarNovosDados'])) {
 
-    
-    $id_cliente = $id_cliente;
-    $id_usuario = $cli['id_usuario'];
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
-    $cpf = $_POST['cpf'];
-    $cep = $_POST['cep'];
-    $telefone = $_POST['telefone'];
-    $rua = $_POST['rua'];
-    $num_casa = (int) $_POST['num_casa'];
-    $bairro = $_POST['bairro'];
-    $estado = $_POST['estado'];
-    $cidade = $_POST['cidade'];
-    $email = $_POST['email'];
+    // Sanitize inputs (exemplo simples)
+    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+    $sobrenome = filter_input(INPUT_POST, 'sobrenome', FILTER_SANITIZE_STRING);
+    $cpf = filter_input(INPUT_POST, 'cpf', FILTER_SANITIZE_STRING);
+    $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_STRING);
+    $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_STRING);
+    $rua = filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_STRING);
+    $num_casa = filter_input(INPUT_POST, 'num_casa', FILTER_VALIDATE_INT);
+    $bairro = filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_STRING);
+    $estado = filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_STRING);
+    $cidade = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+    if ($email === false) {
+        die("Email inválido.");
+    }
 
     $arquivo = $_FILES['foto_perfil'];
-    if ($arquivo['error']) die("falha ao enviar a foto");
-    $pasta = '../../src/imagens/cadastro/perfil/';
-    $nome_foto = $arquivo['name'];
-    $novo_nome = uniqid();
-   
-    $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
 
-    if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
+    $caminho = $cli['foto_perfil']; // mantém foto atual caso não envie nova
 
-    $caminho = $pasta . $novo_nome . '.' .$extensao;
+    if ($arquivo && $arquivo['error'] === UPLOAD_ERR_OK) {
+        $pasta = '../../src/imagens/cadastro/perfil/';
+        $nome_foto = $arquivo['name'];
+        $novo_nome = uniqid();
+        $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
 
-    $foto = move_uploaded_file($arquivo['tmp_name'], $caminho);
-    
+        if (!in_array($extensao, ['png', 'jpg', 'jpeg'])) {
+            die("Extensão da foto inválida. Apenas png, jpg e jpeg são permitidos.");
+        }
+
+        $caminho = $pasta . $novo_nome . '.' . $extensao;
+
+        if (!move_uploaded_file($arquivo['tmp_name'], $caminho)) {
+            die("Falha ao enviar a foto.");
+        }
+    }
+    // Caso tenha enviado arquivo mas deu erro:
+    elseif ($arquivo && $arquivo['error'] !== UPLOAD_ERR_NO_FILE) {
+        die("Erro ao enviar a foto.");
+    }
+
     $cliente = new Cliente();
-    
+
     $cliente->id_cliente = $id_cliente;
     $cliente->nome = $nome;
     $cliente->sobrenome = $sobrenome;
     $cliente->cpf = $cpf;
     $cliente->cep = $cep;
     $cliente->telefone = $telefone;
-    $cliente->numero_casa = $num_casa;
+    $cliente->numero_casa = $num_casa ?: 0; // evita null
     $cliente->foto_perfil = $caminho;
     $cliente->rua = $rua;
     $cliente->bairro = $bairro;
     $cliente->estado = $estado;
     $cliente->cidade = $cidade;
     $cliente->email = $email;
-    $cliente->id_usuario = $id_usuario;
-
+    $cliente->id_usuario = $cli['id_usuario'];
 
     $resultado = $cliente->atualizarCliente();
+
     if ($resultado) {
         echo '<script>
                 alert("Atualizado com sucesso!!");
@@ -85,8 +96,10 @@ if (isset($_POST['carregarNovosDados'])) {
                 alert("Erro ao atualizar!");
               </script>';
     }
-
 }
+
+?>
+
 
 
 
