@@ -43,18 +43,30 @@ if (isset($_POST['carregarNovosDados'])) {
     $email = $_POST['email'];
 
     $arquivo = $_FILES['foto_perfil'];
-    if ($arquivo['error']) die("falha ao enviar a foto");
-    $pasta = '../../src/imagens/cadastro/perfil/';
-    $nome_foto = $arquivo['name'];
-    $novo_nome = uniqid();
-   
-    $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
 
-    if ($extensao != 'png' && $extensao != 'jpg') die("Falha ao enviar a foto");
+    if ($arquivo['error'] == UPLOAD_ERR_NO_FILE || empty($arquivo['name'])) {
+        // Nenhuma imagem nova enviada
+        $caminho = (!empty($cli['foto_perfil'])) ? $cli['foto_perfil'] : null;
+    } 
+    else {
+        if ($arquivo['error']) die("Falha ao enviar a foto");
 
-    $caminho = $pasta . $novo_nome . '.' .$extensao;
+        $pasta = '../../src/imagens/cadastro/perfil/';
+        $nome_foto = $arquivo['name'];
+        $novo_nome = uniqid();
 
-    $foto = move_uploaded_file($arquivo['tmp_name'], $caminho);
+        $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
+
+        if ($arquivo['error'] == UPLOAD_ERR_NO_FILE || empty($arquivo['name'])) {
+            // Nenhuma imagem nova enviada
+            $caminho = (!empty($cli['foto_perfil'])) ? $cli['foto_perfil'] : null;
+        } 
+
+        $caminho = $pasta . $novo_nome . '.' . $extensao;
+
+        $foto = move_uploaded_file($arquivo['tmp_name'], $caminho);
+}
+
     
     $cliente = new Cliente();
     
@@ -75,11 +87,13 @@ if (isset($_POST['carregarNovosDados'])) {
 
 
     $resultado = $cliente->atualizarCliente();
+    $mostrarModal = true;
+
     if ($resultado) {
-        echo '<script>
-                alert("Atualizado com sucesso!!");
-                window.location.href = "./perfil.php";
-              </script>';
+        // echo '<script>
+        //         alert("Atualizado com sucesso!!");
+        //         window.location.href = "./perfil.php";
+        //       </script>';
     } else {
         echo '<script>
                 alert("Erro ao atualizar!");
@@ -126,12 +140,12 @@ if (isset($_POST['carregarNovosDados'])) {
                     <div class="container_banner_perfil">
                         <img src="../../src/imagens/cadastro/perfil/banner-perfil2.png" alt="" class="banner-img">
                         <label for="foto_perfil" class="custom-upload">
-                            <span>+</span>
+                            <i class="fas fa-camera"></i>
                         </label>
                         <div> <input id="foto_perfil" name="foto_perfil" type="file"> </div>
                             <div class="shape_perfil">
                             <?php if ($cli['foto_perfil']): ?>
-                                <img src="<?= $cli['foto_perfil'] ?>" alt="Foto de Perfil">
+                                <img id="preview_foto" src="<?= $cli['foto_perfil'] ?>" alt="Foto de Perfil">
                                 <?php else: ?>
                                     <svg width="100" height="100" viewBox="0 0 24 24" fill="#ccc" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/> </svg>
@@ -234,7 +248,47 @@ if (isset($_POST['carregarNovosDados'])) {
 
 
     </main>
-<?php
 
+<?php if (isset($mostrarModal) && $mostrarModal === true): ?>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    window.onload = function () {
+      Swal.fire({
+        icon: 'success',
+        title: 'Perfil atualizado com sucesso!',
+        showConfirmButton: false,
+        timer: 1000
+      });
+
+      // Redireciona após 1 segundo (mesmo tempo do timer do modal)
+      setTimeout(function () {
+        window.location.href = 'perfil.php';
+      }, 1000);
+    };
+  </script>
+<?php endif; ?>
+
+
+<?php
 include "footer.php";
 ?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("foto_perfil");
+    const preview = document.getElementById("preview_foto");
+
+    input.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
+</script>
+</body>
+</html>

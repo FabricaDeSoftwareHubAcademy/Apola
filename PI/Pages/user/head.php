@@ -29,6 +29,7 @@
     <script src="../../src/JS/swiper_sobre.js" defer></script>
     <script src="../../src/JS/swipper_card.js" defer></script>
     <script src="../../src/JS/item_comprar_produto.js" defer></script>
+    <!-- <script src="../../src/JS/carregar_imagem.js" defer></script> -->
 
 
     <link rel="shortcut icon" href=../../src/imagens/logoconvertida.png type="imagex/png">

@@ -47,9 +47,10 @@
     <script src="../../src/JS/btn_listar_adm.js" defer></script>
 
 
+    <link rel="shortcut icon" href=../../src/imagens/logoconvertida.png type="imagex/png">
 
 
-    <title>Navbar</title>
+    <title>Apola</title>
 </head>
 <body>
 

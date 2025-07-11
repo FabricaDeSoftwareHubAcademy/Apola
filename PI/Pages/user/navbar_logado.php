@@ -44,9 +44,22 @@ if($result){
                         </div>
                         <a  href="./perfil.php" class="content-mobile-top">
                             <div class="img-content-mobile">
-                                <img src="../../src/imagens/img_categorias/urso-teddy.png" alt="">
+                                
+                            <?php if ($cli['foto_perfil']): ?>
+                          <img src="../../src/imagens/cadastro/perfil/<?=$cli['foto_perfil'];?>" alt="Foto de Perfil">
+                          <?php else: ?>
+                            <img src="../../src/imagens/cadastro/perfil/img_padrao_perfil.jpg" alt="Foto de Perfil">
+                          <?php endif; ?>
+
                             </div>
-                            <div class="text-content-mobile"><span>Meu Perfil</span></div>
+                            <div class="text-content-mobile"><span>Meu Perfil</span>
+                            <a href="alterar_perfil.php" class="btn_editar_perfil">
+                            <i class="fa-solid fa-pen-to-square"></i> <span>Alterar Perfil<span>
+                            </a>
+
+                            
+                            </div>
+
                         </a>
                         <div class="content-mobile-btn-login-cad">
                             <button class="btn-login-mobile">
@@ -207,13 +220,18 @@ if($result){
                                     <a id="icon-default" href="./carrinho.php"><i class="fa-solid fa-bag-shopping"></i></a>
                                 </li>
                                 <li class="icon-default-back">
-                                    <a class="conatiner_navbar_perfil_2" href="./perfil.php"><img class="img_navbar_2" src="<?= $cli['foto_perfil']; ?>" alt=""></a>
-            
-                
+                                <a class="conatiner_navbar_perfil_2" href="./perfil.php"><img class="img_navbar_2" src="<?= $cli['foto_perfil']; ?>" alt=""></a>
+                                 
+
+
+                                      
+                                    
+                                
+                                </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
             </nav>
-            <!-- FIM MENU NAVBAR -->
+             <!-- FIM MENU NAVBAR -->
         </header>

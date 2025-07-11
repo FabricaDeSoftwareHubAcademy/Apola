@@ -4,9 +4,6 @@ require_once(__DIR__ . '/../DB/Database.php');
 
 require_once 'User.php';
 
-    
-
-
 class Cliente extends User{
 
     public int $id_cliente;
@@ -36,6 +33,7 @@ class Cliente extends User{
                 'nome' => $this->nome,
                 'email' => $this->email,
                 'senha' => $this->senha,
+                'foto_perfil' => '../../src/imagens/cadastro/perfil/img_padrao_perfil.jpg',
                 'id_perfil' => $this->id_perfil
             ]
         );
@@ -100,6 +98,7 @@ class Cliente extends User{
             'nome' => $this->nome,
             'email' => $this->email,
             // senha se quiser atualizar
+            'foto_perfil' => $this->foto_perfil,
         ]);
     
         // Atualizar tabela 'cliente'
@@ -107,15 +106,13 @@ class Cliente extends User{
         $resCliente = $dbCliente->update('id_cliente = ' . $this->id_cliente, [
             'sobrenome' => $this->sobrenome,
             'cep' => $this->cep,
-            'foto_perfil' => $this->foto_perfil,
             'cpf' => $this->cpf,
             'telefone' => $this->telefone,
             'numero_casa' => $this->numero_casa,
             'rua' => $this->rua,
             'bairro' => $this->bairro,
-            'estado' => $this->estado,
             'cidade' => $this->cidade,
-            
+            'estado' => $this->estado
         ]);
     
         return ($resUsuario && $resCliente);
