@@ -33,6 +33,8 @@
     <script src="../../src/JS/loadDadosSobreNois.js" defer></script>
     <script src="../../src/JS/favoritos.js" defer></script>
     <script src="../../src/JS/carregarImagensPerso.js" defer></script>
+    <script src="../../src/JS/carregar_imagens.js" defer></script>
+    <script src="../../src/JS/modalCadastro.js" defer></script>
 
     <link rel="shortcut icon" href=../../src/imagens/logoconvertida.png type="imagex/png">
 

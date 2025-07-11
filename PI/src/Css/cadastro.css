@@ -592,3 +592,58 @@ Area Texto Cadastro */
 
 
 
+
+
+
+.modalCadastro{
+  display: none;
+}
+.modalCadastroActive{
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.1); /* fundo semi-transparente */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* sombra suave */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* para suporte no Safari */
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 300px;
+  border: 1px solid #ccc;
+  z-index: 10;
+  position: absolute;
+  bottom: 50%;
+  border-radius: 20px;
+  text-decoration: none;
+  list-style: none;
+}
+.areaBtnFecharModalCadastro{
+  width: 80%;
+  height: 60px;
+  /* background-color: #1e840a; */
+  display: flex;
+  justify-content: end;
+}
+.areaBtnFecharModalCadastro p{
+  font-size: 20px;
+  color: red;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.conteudoModalCadastro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+.conteudoModalCadastro p{
+  font-size: 18px;
+  transition: transform 0.3s ease;
+
+}
+.conteudoModalCadastro p:hover{
+  transform: scale(1.5);
+  
+}

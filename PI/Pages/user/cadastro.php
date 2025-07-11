@@ -5,6 +5,7 @@ require '../../App/config.inc.php';
 
 require '../../App/Session/Login.php';
 
+include 'head.php';
 
 
 $erro = '';
@@ -37,7 +38,7 @@ if(isset($_POST['cadastrar'])){
                 $cliente->cadastrarCliente();
 
                 if($cliente){
-                    $succes='Cadastro realizado com successo';
+                    $succes='Cadastro realizado com sucesso';
                 }else{
                     $erro='Erro ao cadastrar';
                 }
@@ -97,13 +98,13 @@ if(isset($_POST['cadastrar'])){
                             </div>
 
                             <div class="form__group field">
-                                <input autocomplete="off" type="text" name="cpf" id="cpf-cad" class="form__field" placeholder="CPF" required>
+                                <input maxlength="11" autocomplete="off" type="text" name="cpf" id="cpf-cad" class="form__field" placeholder="CPF" required>
                                 <label for="cpf-cad" class="form__label">CPF*</label>
                                 <div class="erro-input" id="erro-cpf"></div>
                             </div>
 
                             <div class="form__group field">
-                                <input autocomplete="off" type="text" name="cep" id="cep-cad" class="form__field" placeholder="CEP" required>
+                                <input  maxlength="8" autocomplete="off" type="text" name="cep" id="cep-cad" class="form__field" placeholder="CEP" required>
                                 <label for="cep-cad" class="form__label">CEP*</label>
                                 <div class="erro-input" id="erro-cep"></div>
                             </div>
@@ -115,7 +116,7 @@ if(isset($_POST['cadastrar'])){
                             </div>
 
                             <span class='msg_erro'><?php echo $erro; ?></span>
-                            <span class='msg_sucesso'><?php echo $succes; ?></span>
+                            <span id="spanCadastrado" class='msg_sucesso'><?php echo $succes; ?></span>
 
                             <div class="btn-cadastro">
                                 <button name="cadastrar">Cadastra-se</button>
@@ -126,6 +127,15 @@ if(isset($_POST['cadastrar'])){
                 </div>
                 <div class="img-container-cadastro">
                     <img src="../../src/imagens/cadastro/mulher-plana-cuidando-de-plantas.png" alt="">
+                </div>
+            </div>
+            <div id="ModalCadastro" class="modalCadastro">
+                <div class="areaBtnFecharModalCadastro">
+                    <p id="fecharModalCadastro">X</p>
+                </div>
+                <div class="conteudoModalCadastro">
+                    <h1>Cadastrado com Sucesso!!!</h1>
+                    <p><a href="./login.php">Logar</a></p>
                 </div>
             </div>
         </section>

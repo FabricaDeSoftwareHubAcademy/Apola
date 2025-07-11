@@ -237,9 +237,8 @@ if (isset($_POST['carregarNovosDados'])) {
                             </div>
 
                         </div>
-
-                    </form>
-
+                        </div>
+                </form>
                 </div>
                 
             </div>
