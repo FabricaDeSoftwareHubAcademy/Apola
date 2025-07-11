@@ -282,7 +282,7 @@ clASs Database{
         imagens_produto_perso.imagem3,
         imagens_produto_perso.imagem4,
         IFNULL(pedido.codigo_rastreio, '0') AS codigo_rastreio,
-        IFNULL(sacola.valor_total, 0) AS valor_total,
+        IFNULL(pedido.valor_total_perso, 0) AS valor_total,
         pedido.status_pedido,
         pedido.data_pedido,
         cliente.telefone AS contato,

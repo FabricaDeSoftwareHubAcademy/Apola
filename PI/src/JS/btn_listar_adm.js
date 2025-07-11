@@ -143,7 +143,7 @@ pesquisa.addEventListener('input', function () {
                     html += '<td>';
                     html += e.ID;
                     html += '<td>';
-                    html += e.Valor;
+                    html += e.Valor ?? '0.00';
                     html += '<td>';
                     html += e.Tipo;
                     html += '<td>';

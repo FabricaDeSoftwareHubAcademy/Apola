@@ -13,6 +13,7 @@ if (!$id) {
 
 $entity = new Pedido();
 $pedido_cliente = $entity->buscar_pedidoperso_by_id($id);
+print_r($pedido_cliente);
 
 if (!$pedido_cliente) {
     echo "Pedido personalizado não encontrado.";
@@ -22,10 +23,12 @@ if (!$pedido_cliente) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['selectStatus'] ?? '';
     $codigo = $_POST['codigo_rastreio'] ?? '';
+    $valor = $_POST['valor_total_perso'] ?? '';
 
     // Atualizando os dados no objeto entity
     $entity->status_pedido = $status;
     $entity->codigo_rastreio = $codigo;
+    $entity->valor_total_perso = $valor;
 
     $resultado = $entity->atualizarPedido($id);
 
@@ -102,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="item_flex_pedido">
                                 <label for="">Preço Total</label>
-                                <input type="text" value="<?= htmlspecialchars($pedido_cliente->valor_total); ?>">
+                                <input type="text" name="valor_total_perso" id="valor_total_perso" value="<?= htmlspecialchars($pedido_cliente->valor_total); ?>">
                             </div>
                             <div class="item_flex_pedido">
                                 <label for="codigo_rastreio">Código de Rastreio</label>

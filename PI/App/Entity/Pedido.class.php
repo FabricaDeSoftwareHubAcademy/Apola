@@ -55,7 +55,8 @@ class Pedido {
         $db = new Database('pedido');
         $res = $db->update('id_pedido = '.$id, [
             'codigo_rastreio' => $this->codigo_rastreio,
-            'status_pedido' => $this->status_pedido
+            'status_pedido' => $this->status_pedido,
+            'valor_total_perso' => $this->valor_total,
         ]);
 
         return $res;
