@@ -65,16 +65,12 @@ if($result){
     include 'navbar_deslogado.php';
 }
 
-<<<<<<< HEAD
 if(isset($_GET['id_produto'])){
     $id_produto = $_GET['id_produto'];
 }
 $produto = new Produto();
 $result = $produto->buscarProdutoPorId($id_produto);
 
-
-=======
->>>>>>> c917161 (*)
 ?>
 
     <main class="main2">
@@ -93,13 +89,12 @@ $result = $produto->buscarProdutoPorId($id_produto);
                     <script src="../../src/JS/comprar_produto.js" defer></script>
                     <div class="product-thumb-container">
                         <div class="thumbnail-images">
-<<<<<<< HEAD
+
                             <img src="<?php echo $result->imagem ?>" class="thumbnail" data-image="<?php echo $result->imagem ?>">
                         </div>
                         <div class="image-gallery">
                             <div class="image-gallery-urso">
                                 <img src="<?php echo $result->imagem; ?>" id="main-image">
-=======
                             <?php foreach ($product->getImageUrls() as $url): ?>
                                 <img
                                     src="<?= htmlspecialchars($url) ?>"
@@ -115,7 +110,6 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                     src="<?= htmlspecialchars($product->getImageUrls()[0] ?? '') ?>"
                                     id="main-image"
                                 >
->>>>>>> c917161 (*)
                             </div>
                             <div class="zoom-result" id="zoom-result"></div>
                         </div>
@@ -124,11 +118,8 @@ $result = $produto->buscarProdutoPorId($id_produto);
                     <div class="product-details">
                         <div class="product-details_left">
                             <div class="container_name_produto">
-<<<<<<< HEAD
                                 <h6><?php echo $result->nome ?></h6>
-=======
                                 <h6><?= htmlspecialchars($product->getName()) ?></h6>
->>>>>>> c917161 (*)
                                 <i class="fa-solid fa-heart"></i>
                             </div>
                             <div class="container_avaliacao_produto">
@@ -139,37 +130,28 @@ $result = $produto->buscarProdutoPorId($id_produto);
                             <div class="item_flex_produto">
                                 <label>Cor</label>
                                 <div class="item_flex_cor_produto">
-<<<<<<< HEAD
-                                     
                                     <div style="background-color: <?php echo $result->cor; ?>" class="shape_cor_produto"></div>
                                     
-=======
                                     <?php foreach ($product->getColors() as $colorHex): ?>
                                         <div class="shape_cor_produto" style="background: <?= htmlspecialchars($colorHex) ?>;"></div>
                                     <?php endforeach; ?>
->>>>>>> c917161 (*)
                                 </div>
                             </div>
                             <div class="item_flex_produto">
                                 <label>tamanho</label>
                                 <div class="item_flex_cor_produto">
-<<<<<<< HEAD
                                     <div class="shape_tamanho_produto">Altura <?php echo $result->altura; ?> cm</div>
                                     <div class="shape_tamanho_produto">Largura <?php echo $result->largura; ?> cm</div>
-=======
                                     <?php foreach ($product->getSizes() as $size): ?>
                                         <div class="shape_tamanho_produto"><?= htmlspecialchars($size) ?></div>
                                     <?php endforeach; ?>
->>>>>>> c917161 (*)
                                 </div>
                             </div>
                         </div>
                         <div class="product-details_right">
                             <div class="container_preco_produto">
-<<<<<<< HEAD
                                 <!-- <span class="preco_antigo_produto">Preço </span> -->
                                 <span class="preco_novo_produto">R$ <div id="valor_produt"><?php echo $result->preco; ?></div></span>
-=======
                                 <?php if ($product->getOriginalPrice()): ?>
                                     <span class="preco_antigo_produto">
                                         De R$ <?= number_format($product->getOriginalPrice(), 2, ',', '.') ?>
@@ -180,7 +162,6 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                         <?= number_format($product->getPrice(), 2, ',', '.') ?>
                                     </div>
                                 </span>
->>>>>>> c917161 (*)
                             </div>
                             
                             <div class="container_cep_produto">
@@ -236,7 +217,6 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                         data-qty-target="quant_item_solo-<?= $product->getId() ?>">
                                     <i class="fa-solid fa-bag-shopping"></i>
                                 </button>
-<<<<<<< HEAD
                             </div>
                             <div class="container_buy_quant display_none_solo">
                                 <div id='sub_item_solo' class="menos_cart"><i class="fa-solid fa-minus"></i></div>
@@ -293,7 +273,6 @@ $result = $produto->buscarProdutoPorId($id_produto);
                             <dialog id="modal-1">
                                 <div class="modal_header">
                                 <button class="close-modal" data-modal="modal-1"><i class="fa-solid fa-xmark"></i></button>
-=======
                             </section>
                             <section class="comprar_produto_medium">
                                 <div class="descricao_produto_solo_cont">
@@ -309,7 +288,6 @@ $result = $produto->buscarProdutoPorId($id_produto);
                                     <div class="descricao_solo">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis, quasi illum molestias exercitationem rerum cum illo maxime cupiditate labore nisi. Optio perferendis, velit ipsam reprehenderit sequi repellat consequatur earum tempore! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe, beatae, blanditiis rerum voluptatem sit vero incidunt non odio debitis cum mollitia voluptates aperiam reprehenderit, quaerat esse deserunt expedita. Ut, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem illo asperiores in cupiditate. Possimus alias id quis aliquid perferendis quia cupiditate voluptatem tenetur iure. Tempora consectetur odio excepturi obcaecati praesentium? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus molestiae, officiis ex mollitia, eaque rerum debitis explicabo dicta minus incidunt ipsam quaerat non perspiciatis possimus exercitationem optio facilis qui ad. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia sint aliquam aliquid excepturi, laborum molestiae quia voluptas dolorem placeat fuga porro! Obcaecati debitis distinctio dolorum quis, repellat recusandae alias maiores?  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate, maxime vitae. Quam praesentium ex molestiae, nobis obcaecati pariatur veritatis id commodi architecto voluptatibus sapiente error corrupti ab provident soluta aliquid?</div>
                                     </div>
                                     <div class="shape_solo"></div>
->>>>>>> c917161 (*)
                                 </div>
                                 <div class="descricao_produto_solo_cont">
                                     <div class="descricao_produto_solo_cont_header">
