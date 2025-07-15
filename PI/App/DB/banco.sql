@@ -1,5 +1,9 @@
 /*usando o banco de dados do pi*/ 
+<<<<<<< HEAD
 use 140p1; 
+=======
+use Users;
+>>>>>>> c917161 (*)
 
 /*primeiro vou criar as tabelas que não possui id de outras tabelas*/   
 

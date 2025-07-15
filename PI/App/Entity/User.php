@@ -9,11 +9,11 @@ require_once(__DIR__ . '/../DB/Database.php');
 class User{
 
 
-    public int $id_user;
-    public string $nome;
-    public string $email;
-    public string $senha;
-    public string $id_perfil;
+    public int $id_usuario;        // rename from id_user to id_usuario
+    public ?string $email = null;
+    public ?string $nome = null;
+    public ?string $id_perfil = null;
+    public ?string $senha = null;
 
 
 
