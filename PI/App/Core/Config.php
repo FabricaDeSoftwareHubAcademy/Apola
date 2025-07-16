@@ -6,6 +6,8 @@ namespace App\Core;
 use Dotenv\Dotenv;
 use RuntimeException;
 
+
+
 class SessionManager {
     public static function start(): void {
         if (session_status() === PHP_SESSION_NONE) {

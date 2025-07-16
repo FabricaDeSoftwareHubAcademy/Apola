@@ -1,16 +1,20 @@
 <?php
-// /home/felix/Desktop/php_2/PI/Pages/user/carrinho.php
+// /home/felix/Desktop/Apola/PI/Pages/user/carrinho.php
 
-session_start(); 
+session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require '../../App/config.inc.php';
-require '../../App/Session/Login.php';
+// Carregamento único do autoload e do .env
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../App/config.inc.php';
 
+// Autenticação de login
+require_once __DIR__ . '/../../App/Session/Login.php';
+
+// Agora você pode usar suas classes
 use App\Controllers\CartController;
 use App\DB\Database;
 

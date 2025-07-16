@@ -1,13 +1,18 @@
 <?php
+// /home/felix/Desktop/Apola/PI/Pages/user/comprar_produto.php
+
+session_start();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
-require_once __DIR__ . '/../../App/DB/Database.php';
-// require_once __DIR__ . '/../../App/Controllers/ProductController.php';
-require '../../App/config.inc.php';
-require '../../App/Session/Login.php';
+require_once __DIR__ . '/../../App/config.inc.php';
+require_once __DIR__ . '/../../App/Session/Login.php';
 
-use App\Core\Config;
 use App\DB\Database;
+use App\Core\Config;
 
 // Erros ativados para debug
 ini_set('display_errors', 1);

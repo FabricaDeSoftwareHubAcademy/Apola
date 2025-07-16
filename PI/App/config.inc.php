@@ -1,8 +1,10 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';  // Make sure this is correct
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../'); // this points to /PI
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
 define('DB_HOST', $_ENV['DB_HOST']);
