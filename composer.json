@@ -1,10 +1,11 @@
 {
     "name": "felix/apola",
     "autoload": {
-        "psr-4": {
-            "Felix\\Apola\\": "src/"
-        }
-    },
+    "psr-4": {
+        "App\\": "PI/App/"
+    }
+}
+,
     "authors": [
         {
             "name": "DENTIN44",

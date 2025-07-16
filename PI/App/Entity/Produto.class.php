@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/../DB/Database.php');
 
+use App\DB\Database;
 
 class Produto{
     public string $nome;

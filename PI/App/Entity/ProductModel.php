@@ -2,11 +2,10 @@
 
 // PI/App/Entity/ProductModel.php
 namespace App\Entity;
+require_once __DIR__ . '/../DB/Database.php';
 
 use App\Entity\Product;
 use App\Entity\Category;
-
-require_once __DIR__ . '/../DB/Database.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -58,7 +57,7 @@ class ProductModel
                 p.tipo,
                 p.largura,      
                 p.altura        
-            FROM produto p
+            FROM produtos p
             WHERE p.id_produto IN ($placeholders)
         ";
 
@@ -96,8 +95,8 @@ class ProductModel
                 p.largura,
                 p.altura,
                 c.id_categoria,
-                c.nome AS nome_categoria
-            FROM produto p
+                c.nome_categoria AS nome_categoria
+            FROM produtos p
             JOIN categoria c ON p.categoria_id_categoria = c.id_categoria
             WHERE p.id_produto = :id
             LIMIT 1

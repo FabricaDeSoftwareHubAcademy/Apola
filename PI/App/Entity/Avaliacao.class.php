@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../DB/Database.php';
+require_once(__DIR__ . '/../DB/Database.php');
+
+use App\DB\Database;
+
 
 Class Avaliacao{
     public string $comentario;

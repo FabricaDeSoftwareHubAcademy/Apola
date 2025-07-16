@@ -24,7 +24,7 @@ class Config
     public static function initialize(): void
     {
         if (!self::$initialized) {
-            $rootPath = dirname(__DIR__, 2); // /home/felix/Apola/PI
+            $rootPath = dirname(__DIR__, 3); // /home/felix/Apola/PI
 
             // Load .env if exists
             if (!file_exists($rootPath . '/.env')) {

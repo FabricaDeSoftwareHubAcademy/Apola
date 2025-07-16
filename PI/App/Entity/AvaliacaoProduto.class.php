@@ -1,8 +1,10 @@
 <?php
 
+require_once 'Avaliacao.class.php';
 require_once(__DIR__ . '/../DB/Database.php');
 
-require_once 'Avaliacao.class.php';
+use App\DB\Database;
+
 
 
 class AvaliacaoProduto extends Avaliacao{

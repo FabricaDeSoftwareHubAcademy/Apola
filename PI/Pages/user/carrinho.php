@@ -14,6 +14,10 @@ require_once __DIR__ . '/../../App/config.inc.php';
 // Autenticação de login
 require_once __DIR__ . '/../../App/Session/Login.php';
 
+require_once __DIR__ . '/../../App/Entity/Pedido.class.php';
+
+
+
 // Agora você pode usar suas classes
 use App\Controllers\CartController;
 use App\DB\Database;

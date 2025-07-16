@@ -1,6 +1,7 @@
 <?php
-require_once(__DIR__ . '/../DB/Database.php');
 require_once 'Pedido.class.php';
+
+use App\DB\Database;
 
 class ProdutoPerso extends Pedido{
     public string $tipo;

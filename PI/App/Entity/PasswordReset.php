@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../DB/Database.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 // rest of your PasswordReset class/code
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
+use App\DB\Database;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
 
 
 $root = realpath(__DIR__ . '/../../../'); // goes from App/Entity to Apola/

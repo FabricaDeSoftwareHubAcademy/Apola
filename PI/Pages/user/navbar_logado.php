@@ -193,7 +193,18 @@ if($result){
                                     </div>
                                 </li>
                                 <li class="icon-default-back">
-                                    <a id="icon-default" href="./carrinho.php"><i class="fa-solid fa-bag-shopping"></i></a>
+                                    <a id="icon-default" href="carrinho.php" class="nav_icon">
+                                        <i class="fa-solid fa-bag-shopping"></i>
+                                        <span class="cart-count">
+                                            <?php
+                                            $totalQuantity = 0;
+                                            if (!empty($_SESSION['cart'])) {
+                                                $totalQuantity = array_sum(array_column($_SESSION['cart'], 'quantidade'));
+                                            }
+                                            echo $totalQuantity;
+                                            ?>
+                                        </span>
+                                    </a>
                                 </li>
                                 <li class="icon-default-back">
                                     <a class="conatiner_navbar_perfil_2" href="./perfil.php"><img class="img_navbar_2" src="<?= $cli['foto_perfil']; ?>" alt=""></a>
