@@ -160,7 +160,7 @@ clASs Database{
     public function select_perfil($id_cli){
 
         // COM FIELDS NA FUNÇÃO SELECT COMO PARAMENTRO = "$fields = '*'
-        $query = 'SELECT usuario.nome,cliente.sobrenome,usuario.email,cliente.cpf,cliente.foto_perfil,cliente.cep,cliente.telefone,cliente.numero_casa,cliente.rua,cliente.bairro,cliente.cidade,cliente.estado, usuario.id_usuario
+        $query = 'SELECT usuario.nome,cliente.sobrenome,usuario.email,cliente.cpf,usuario.foto_perfil,cliente.cep,cliente.telefone,cliente.numero_casa,cliente.rua,cliente.bairro,cliente.cidade,cliente.estado, usuario.id_usuario
         from cliente inner join usuario
         on usuario.id_usuario = cliente.id_usuario
         and cliente.id_cliente = '.$id_cli;

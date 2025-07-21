@@ -8,7 +8,8 @@ require_once 'User.php';
 class Adm extends User{
 
     public int $id_usuario;
-
+    public string $foto_perfil;
+    
     public function cadastrarAdm(){
 
 
@@ -18,13 +19,16 @@ class Adm extends User{
                 'nome' => $this->nome,
                 'email' => $this->email,
                 'senha' => $this->senha,
-                'id_perfil' => $this->id_perfil
+                'id_perfil' => $this->id_perfil,
+                'foto_perfil'=> $this ->foto_perfil
             ]
         );
         $db = new Database('administrador');
         $res = $db->insert(
             [
-                'id_usuario' => $res_id
+                'id_usuario' => $res_id,
+                'foto_perfil'=> $this ->foto_perfil
+
             ]
             );
 
@@ -50,12 +54,31 @@ class Adm extends User{
         return $result->fetchObject(self::class);
     }
 
-    public function updateAdm($id_administador){
-        return (new Database('administrador'))->update('id_administrador = '.$id_administador,[
-                                            'id_usuario'=> $this->id_usuario,
-        ]);
-        
+    public function updateAdm() {
+        // Atualiza a tabela 'usuario'
+        $dbUsuario = new Database('usuario');
+        $resUsuario = $dbUsuario->update(
+            'id_usuario = ' . $this->id_usuario,    // ← corrigido aqui
+            [
+                'nome'        => $this->nome,
+                'email'       => $this->email,
+                'senha'       => $this->senha,
+                'foto_perfil' => $this->foto_perfil
+            ]
+        );
+    
+        // Atualiza a tabela 'administrador' (se você realmente tiver foto_perfil lá)
+        $dbAdministrador = new Database('administrador');
+        $resAdministrador = $dbAdministrador->update(
+            'id_administrador = ' . $this->id_administrador,
+            ['foto_perfil' => $this->foto_perfil]
+        );
+    
+        return $resUsuario && $resAdministrador;
     }
+    
+    
+    
 }
 
 

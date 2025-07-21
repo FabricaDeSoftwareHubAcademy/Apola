@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 
-
     <!-- SCRIPT USER -->
     <script src="../../src/JS/banner.js" defer></script>
     <script src="../../src/JS/comprar_produto.js" defer></script>
@@ -30,9 +29,8 @@
     <script src="../../src/JS/swiper_sobre.js" defer></script>
     <script src="../../src/JS/swipper_card.js" defer></script>
     <script src="../../src/JS/item_comprar_produto.js" defer></script>
-    <script src="../../src/JS/loadDadosSobreNois.js" defer></script>
-    <script src="../../src/JS/favoritos.js" defer></script>
-    <script src="../../src/JS/carregarImagensPerso.js" defer></script>
+    <!-- <script src="../../src/JS/carregar_imagem.js" defer></script> -->
+
 
     <link rel="shortcut icon" href=../../src/imagens/logoconvertida.png type="imagex/png">
 

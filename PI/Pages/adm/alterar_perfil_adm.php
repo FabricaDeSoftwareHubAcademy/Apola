@@ -1,28 +1,32 @@
 <?php
-
-
 include 'nav_bar_adm.php';
-
-// print_r($_SESSION['id_usuario']);
-
-
-// $id_adm = ($sessao);
-// print_r($id_administrador);
 
 $entityAdm = new Adm();
 $adm = $entityAdm->getAdmById($id_administrador);
 $id_usuario = $adm->id_usuario;
-$entityUsuario = new User();
 
+$entityUsuario = new User();
 $usuario = $entityUsuario->getUsuarioById($id_usuario);
 
-// Tarefa Lourdes: Criar modal verdinho de correto na tela de perfil do adm - Taslk 41
-// print_r($usuario);
-
-if(isset($_POST['enviarDados'])){
+if (isset($_POST['enviarDados'])) {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
+    $arquivo = $_FILES['foto_adm'];
+
+    if ($arquivo['error'] == 0) {
+        $pasta = '../../src/imagens/cadastro/perfil/';
+        $nome_foto = $arquivo['name'];
+        $novo_nome = uniqid();
+        $extensao = strtolower(pathinfo($nome_foto, PATHINFO_EXTENSION));
+        if ($extensao != 'png' && $extensao != 'jpg' && $extensao != 'jpeg') die("Extensão inválida");
+
+        $caminho = $pasta . $novo_nome . '.' . $extensao;
+        move_uploaded_file($arquivo['tmp_name'], $caminho);
+        $fotoPerfil = $novo_nome . '.' . $extensao;
+    } else {
+        $fotoPerfil = $adm->foto_perfil;
+    }
 
     $senhaCript = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -31,17 +35,22 @@ if(isset($_POST['enviarDados'])){
     $entityUsuario->email = $email;
     $entityUsuario->senha = $senhaCript;
     $entityUsuario->id_perfil = "adm";
-
-    $entityAdm->id_usuario = $id_usuario;
+    $entityUsuario->foto_perfil = $fotoPerfil;
     $resultadoUpdadeUser = $entityUsuario->updateUser();
-    $resultadoUpdadeAdm = $entityAdm->updateAdm($id_administrador);
 
-    if($resultadoUpdadeAdm && $resultadoUpdadeUser){
-        $mostrarModal = true; // ativa o modal verdinho
-        if($mostrarModal == true){
-            echo '<meta http-equiv="refresh" content="1.9">'; //
-        } 
-        
+    $entityAdm->id_administrador = $id_administrador;
+    $entityAdm->id_usuario = $id_usuario;
+    $entityAdm->nome = $nome;
+    $entityAdm->email = $email;
+    $entityAdm->senha = $senhaCript;
+    $entityAdm->foto_perfil = $fotoPerfil;
+    $resultadoUpdadeAdm = $entityAdm->updateAdm();
+
+    if ($resultadoUpdadeAdm && $resultadoUpdadeUser) {
+        $adm = $entityAdm->getAdmById($id_administrador);
+        $usuario = $entityUsuario->getUsuarioById($id_usuario);
+        $mostrarModal = true;
+        echo '<meta http-equiv="refresh" content="1.9">';
     } else {
         echo "<script>
             Swal.fire({
@@ -52,163 +61,131 @@ if(isset($_POST['enviarDados'])){
             });
         </script>";
     }
-
 }
-
-
-
-################################################################
-
-// if(isset($_POST['enviarDados'])){
-//     $nome = $_POST['nome'];
-//     $email = $_POST['email'];
-//     $senha = $_POST['senha'];
-
-//     $senhaCript = password_hash($senha, PASSWORD_DEFAULT);
-
-//     $entityUsuario->id_user = $id_usuario;
-//     $entityUsuario->nome = $nome;
-//     $entityUsuario->email = $email;
-//     $entityUsuario->senha = $senhaCript;
-//     $entityUsuario->id_perfil = "adm";
-
-//     $entityAdm->id_usuario = $id_usuario;
-//     $resultadoUpdadeUser = $entityUsuario->updateUser();
-//     $resultadoUpdadeAdm = $entityAdm->updateAdm($id_administrador);
-
-//     if($resultadoUpdadeAdm && $resultadoUpdadeUser){
-//         echo '<script>alert("Atualizado")</script>';
-//         echo '<meta http-equiv="refresh" content="0.8;">';
-//     }
-// }
-
-##############################################################
-
 ?>
 
-    <main class="main2">
-        <section class="container_perfil">
-            <div class="left-container_favoritos">
-                <div class="container_favoritos_left">
-                    <div class="title_left_favoritos">Meu Perfil</div>
-                    <ul>
-                        <li class="item_favorito_left">
-                            <i class="fa-solid icon_favorito_content  fa-house"></i><a class="link_favorito_left" href="./perfil_adm.php">Conta</a>
-                        </li>
-                        <li class="item_favorito_left">
-                            <i class="fa-solid fa-pencil icon_favorito_content"></i><a class="link_favorito_left" href="./alterar_perfil_adm.php">Alterar Perfil</a>
-                        </li>
-                    </ul>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil Adm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="seu_arquivo_css.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
 
+<main class="main2">
+  <section class="container_perfil">
+    <div class="left-container_favoritos">
+      <div class="container_favoritos_left">
+        <div class="title_left_favoritos">Meu Perfil</div>
+        <ul>
+          <li class="item_favorito_left">
+            <i class="fa-solid icon_favorito_content fa-house"></i>
+            <a class="link_favorito_left" href="./perfil_adm.php">Conta</a>
+          </li>
+          <li class="item_favorito_left">
+            <i class="fa-solid fa-pencil icon_favorito_content"></i>
+            <a class="link_favorito_left" href="./alterar_perfil_adm.php">Alterar Perfil</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-                </div>
+    <div class="right_container_perfil">
+      <div class="container_right_perfil">
+        <form method="POST" class="inputs_perfil" enctype="multipart/form-data">
+          <div class="container_banner_perfil">
+            <img src="../../src/imagens/cadastro/perfil/banner-perfil2.png" alt="Banner" class="banner-img">
+
+            <label for="foto_adm" class="custom-upload">
+              <i class="fas fa-camera"></i>
+            </label>
+            <input id="foto_adm" name="foto_adm" type="file">
+
+            <div class="shape_perfil">
+                        <?php if ($usuario->foto_perfil): ?>
+                          <img id="preview_foto" src="../../src/imagens/cadastro/perfil/<?=$usuario->foto_perfil?>" alt="Foto de Perfil">
+                          <?php else: ?>
+                              <svg width="100" height="100" viewBox="0 0 24 24" fill="#ccc" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                          </svg>
+                        <?php endif; ?>
             </div>
-            <div class="right_container_perfil">
-                <div class="container_right_perfil">
-                    <div class="container_banner_perfil">
-                        <img src="" alt="">
-                        <div class="shape_perfil">
-                            <img src="../../src/imagens/image.png" alt="">
-                        </div>
-                    </div>
-                    <form method="POST" class="inputs_perfil">
-                        <div class="input_perfil_container">
-                            <div class="input_item_perfil">
-                                <label for="">Nome Completo</label>
-                                <div class="container_edit_perfil">
-                                    <input type="text" name="nome" id="" value="<?= $usuario->nome; ?>">
-                                   
-                                </div>
-                            </div>
-                            <div class="input_item_perfil">
-                                <label for="">Email</label>
-                                <div class="container_edit_perfil">
-                                    <input type="email" name="email" id="" value="<?= $usuario->email; ?>">
-                                   
-                                </div>
-                            </div>
-                            <div class="input_item_perfil">
-                                <label for="">Alterar Senha</label>
-                                <div class="container_edit_perfil">
-                                    <input type="password"  name="senha" id="" placeholder="insira a nova senha">
-                                </div>
-                            </div>
-                            <!-- <div class="input_item_perfil">
-                                <label for="">CPF</label>
-                                <div class="container_edit_perfil">
-                                    <input type="text" name="cpf" id="">
-                              
-                                </div>
-                            </div> -->
-                            <div class="container_btn_perfil">
-                                <button onclick="reload()" class="btn_cancelar">Cancelar</button>
-                                <button type = "submit" name="enviarDados" class="btn_salvar">Salvar</button>
-                            </div>
+          </div>
 
-                           
-                        </div>
-
-                        <!-- Tarefa Lourdes: Criar modal verdinho de correto na tela de perfil do adm - Taslk 41  -->
-
-                        <!-- Modal de sucesso -->
-                        <div id="modalSucesso" class="modal-sucesso">
-                            <div class="modal-conteudo">
-                                <span class="fechar" onclick="fecharModal()">&times;</span>
-                                <p><strong>✔ Sucesso!</strong> A operação foi realizada corretamente.</p>
-                            </div>
-                        </div>                      
-                    </form>
-
-                </div>
-                
+          <div class="input_perfil_container">
+            <div class="input_item_perfil">
+              <label>Nome Completo</label>
+              <div class="container_edit_perfil">
+                <input type="text" name="nome" value="<?= $usuario->nome; ?>">
+              </div>
             </div>
-        </section>
 
+            <div class="input_item_perfil">
+              <label>Email</label>
+              <div class="container_edit_perfil">
+                <input type="email" name="email" value="<?= $usuario->email; ?>">
+              </div>
+            </div>
 
-    </main>
-    
-    
-    <!-- Tarefa Lourdes: Criar modal verdinho de correto na tela de perfil do adm - Taslk 41  -->
+            <div class="input_item_perfil">
+              <label>Alterar Senha</label>
+              <div class="container_edit_perfil">
+                <input type="password" name="senha" placeholder="Insira a nova senha">
+              </div>
+            </div>
 
-    <!-- Funções JS para o modal -->
+            <div class="container_btn_perfil">
+              <button type="button" onclick="location.reload()" class="btn_cancelar">Cancelar</button>
+              <button type="submit" name="enviarDados" class="btn_salvar">Salvar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Script para preview da imagem -->
 <script>
-function mostrarModal() {
-    const modal = document.getElementById("modalSucesso");
-    modal.style.display = "block";
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("foto_adm");
+    const preview = document.getElementById("preview_foto");
 
-    // Fecha automaticamente após 3 segundos
-    setTimeout(() => {
-       modal.style.display = "none";
-       
-    }, 1);
-}
-
-function fecharModal() {
-    document.getElementById("modalSucesso").style.display = "none";
-}
+    input.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
 </script>
 
-<!-- PHP ativa o modal se operação for bem-sucedida -->
+<!-- Modal + SweetAlert se sucesso -->
 <?php if (isset($mostrarModal) && $mostrarModal === true): ?>
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        window.onload = function  () {
-            // Mostra o modal verdinho simples
-            mostrarModal();
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    window.onload = function () {
+      Swal.fire({
+        icon: 'success',
+        title: 'Perfil atualizado com sucesso!',
+        showConfirmButton: false,
+        timer: 1000
+      });
 
-            // E também mostra o SweetAlert como reforço visual
-            Swal.fire({
-                icon: 'success',
-                title: 'Perfil atualizado com sucesso!',
-                showConfirmButton: false,
-                timer: 1000
-            });
-        };
-
-         
-        
-    </script>
+      // Redireciona após 1 segundo (mesmo tempo do timer do modal)
+      setTimeout(function () {
+        window.location.href = 'perfil_adm.php';
+      }, 1000);
+    };
+  </script>
 <?php endif; ?>
 
-?>
+</body>
+</html>

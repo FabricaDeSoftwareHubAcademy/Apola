@@ -154,7 +154,6 @@
     transition: 0.2s ease ;
 }
 
-
 /* 
 Area Sub Menu */
 
@@ -360,7 +359,6 @@ AREA NAVBAR LOGADO */
   object-fit: cover;
   border-radius: 50%;
 }
-
 /* 
 Area Responsiva */
 
@@ -640,6 +638,13 @@ Area Responsiva */
     padding-bottom: 0.6rem;
     color: #676767;
   }
+
+  /* .btn_editar_perfil ul i a{
+    color: #555555;
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+  } */
 
   .content-conteudo-mobile ul{
     display: flex;

@@ -1,6 +1,5 @@
 <?php
 
-
 require '../../App/config.inc.php';
 require '../../App/Session/Login.php';
 
@@ -58,13 +57,20 @@ if($result){
                     
                 <form method="POST" class="inputs_perfil"  enctype="multipart/form-data">
 
-                    <div class="container_banner_perfil">
-                    <img src="../../src/imagens/cadastro/perfil/banner-perfil2.png" alt="" class="banner-img">
-                        <div> <input id="foto_perfil" name="foto_perfil" type="file"> </div>
-                        <div class="shape_perfil">
-                           <img src="<?=$cli['foto_perfil']; ?>" alt="">
-                        </div>
+                <div class="container_banner_perfil">
+                <img src="../../src/imagens/cadastro/perfil/banner-perfil2.png" alt="" class="banner-img">
+                    <div><input id="foto_perfil" name="foto_perfil" type="file"></div>
+                    <div class="shape_perfil">
+                    <?php if ($cli['foto_perfil']): ?>
+                        <img src="<?= $cli['foto_perfil'] ?>" alt="Foto de Perfil">
+                    <?php else: ?>
+                        <svg width="100" height="100" viewBox="0 0 24 24" fill="#ccc" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <?php endif; ?>
                     </div>
+                </div>
+
                      
                     <form class="inputs_perfil">
                         <div class="input_perfil_container">

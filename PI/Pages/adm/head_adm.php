@@ -48,9 +48,10 @@
     
 
 
+    <link rel="shortcut icon" href=../../src/imagens/logoconvertida.png type="imagex/png">
 
 
-    <title>Navbar</title>
+    <title>Apola</title>
 </head>
 <body>
 

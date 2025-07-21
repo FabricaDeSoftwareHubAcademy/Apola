@@ -47,9 +47,17 @@ if($result){
                         </div>
                         <a  href="./perfil.php" class="content-mobile-top">
                             <div class="img-content-mobile">
-                                <img src="../../src/imagens/img_categorias/urso-teddy.png" alt="">
+                                
+                                <?php if ($cli['foto_perfil']): ?>
+                                    <img src="<?=$cli['foto_perfil'];?>" alt="Foto de Perfil">
+                                    <?php else: ?>
+                                    <img src="../../src/imagens/cadastro/perfil/img_padrao_perfil.jpg" alt="Foto de Perfil">
+                                <?php endif; ?>
+
+                            
+                            
                             </div>
-                            <div class="text-content-mobile"><span>Meu Perfil</span></div>
+
                         </a>
                         <div class="content-mobile-btn-login-cad">
                             <button class="btn-login-mobile">
@@ -69,13 +77,18 @@ if($result){
                             <h5>Destaque</h5>
                             <ul>
                                 <li>
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <a href="alterar_perfil.php"></i> Alterar Perfil</a>
+                                </li>
+<!-- 
+                                <li>
                                     <i class="fa-solid fa-fire"></i>
                                     <a href="">Mais Vendidos</a>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-dollar-sign"></i>
                                     <a href="">Ofertas</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <i class="fa-solid fa-box"></i>
                                     <a href=" ./produto_personalizado.php">Produto Personalizado</a>
@@ -196,13 +209,18 @@ if($result){
                                     <a id="icon-default" href="./carrinho.php"><i class="fa-solid fa-bag-shopping"></i></a>
                                 </li>
                                 <li class="icon-default-back">
-                                    <a class="conatiner_navbar_perfil_2" href="./perfil.php"><img class="img_navbar_2" src="<?= $cli['foto_perfil']; ?>" alt=""></a>
-            
-                
+                                <a class="conatiner_navbar_perfil_2" href="./perfil.php"><img class="img_navbar_2" src="<?= $cli['foto_perfil']; ?>" alt=""></a>
+                                 
+
+
+                                      
+                                    
+                                
+                                </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
             </nav>
-            <!-- FIM MENU NAVBAR -->
+             <!-- FIM MENU NAVBAR -->
         </header>

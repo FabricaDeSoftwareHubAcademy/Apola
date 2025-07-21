@@ -17,10 +17,6 @@ class User{
 
 
 
-    //atributo tipo perfil
-    // enum cliente e adm.  
-    
-    
     
 
 
