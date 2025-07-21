@@ -75,9 +75,6 @@ if (isset($_POST['logar'])) {
 
 
 
-
-
-
 ?>
 
 <!DOCTYPE html>

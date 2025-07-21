@@ -45,18 +45,13 @@ if($result){
                         <a  href="./perfil.php" class="content-mobile-top">
                             <div class="img-content-mobile">
                                 
-                            <?php if ($cli['foto_perfil']): ?>
-                          <img src="../../src/imagens/cadastro/perfil/<?=$cli['foto_perfil'];?>" alt="Foto de Perfil">
-                          <?php else: ?>
-                            <img src="../../src/imagens/cadastro/perfil/img_padrao_perfil.jpg" alt="Foto de Perfil">
-                          <?php endif; ?>
+                                <?php if ($cli['foto_perfil']): ?>
+                                    <img src="<?=$cli['foto_perfil'];?>" alt="Foto de Perfil">
+                                    <?php else: ?>
+                                    <img src="../../src/imagens/cadastro/perfil/img_padrao_perfil.jpg" alt="Foto de Perfil">
+                                <?php endif; ?>
 
-                            </div>
-                            <div class="text-content-mobile"><span>Meu Perfil</span>
-                            <a href="alterar_perfil.php" class="btn_editar_perfil">
-                            <i class="fa-solid fa-pen-to-square"></i> <span>Alterar Perfil<span>
-                            </a>
-
+                            
                             
                             </div>
 
@@ -79,13 +74,18 @@ if($result){
                             <h5>Destaque</h5>
                             <ul>
                                 <li>
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <a href="alterar_perfil.php"></i> Alterar Perfil</a>
+                                </li>
+<!-- 
+                                <li>
                                     <i class="fa-solid fa-fire"></i>
                                     <a href="">Mais Vendidos</a>
                                 </li>
                                 <li>
                                     <i class="fa-solid fa-dollar-sign"></i>
                                     <a href="">Ofertas</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <i class="fa-solid fa-box"></i>
                                     <a href=" ./produto_personalizado.php">Produto Personalizado</a>
